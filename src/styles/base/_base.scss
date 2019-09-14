@@ -1,0 +1,53 @@
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: $m-size;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+.custom-sliding-pane {
+  background:transparent;
+  .slide-pane__content {
+    padding:0;
+  }
+}
+
+#advEditor {
+  &-body {
+    background:rgba(30,30,30,0.87) !important;
+    font-size: $m-size !important;
+  }
+}
+
+.playing, .finished {
+  opacity:0.4
+} 
+
+.hide {
+  //display:none !important;
+  visibility: hidden;
+  height:0
+}
+
+h3 input {
+  font-weight:bold;
+  font-size: $l-size;
+  padding:0;
+  margin:0;
+  border:0;
+}
+
+.appBar {
+  bottom:0;
+  top: auto !important
+}
