@@ -15,6 +15,10 @@ function MovieYear(props) {
     const year = e.target.value;
     props.dispatch(editMovie(id, { 'year': year }));
   };
+  const handleOpenState = (e, status) => {
+    setOpen(status);
+    e.preventDefault();
+  };
   const getYearsSelector = () => {
     const yearsMax = new Date().getFullYear();
     let renderedOptions = [];
@@ -25,7 +29,7 @@ function MovieYear(props) {
   }
   return (
     <span>
-        <a href="#" onClick={() => setOpen(true)}>{year}</a><br/>
+        <a href="#" onClick={(e) => handleOpenState(e,true)}>{year}</a>
         <Select
           className="hide"
           open={open}

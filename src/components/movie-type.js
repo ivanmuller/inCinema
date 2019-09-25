@@ -15,14 +15,18 @@ function MovieType(props) {
     const type = e.target.value;
     props.dispatch(editMovie(id, { type }));
   };  
+  const handleSetOpen = (e, status) => {
+    setOpen(status);
+    if (e) { e.preventDefault() }
+  };
   return (
     <React.Fragment>
-        <a href="#" onClick={() => setOpen(true)}>{type}</a><br/>
+        <a href="#" onClick={(e) => handleSetOpen(e,true)}>{type}</a><br/>
         <Select
           className="hide"
           open={open}
-          onClose={() => setOpen(false)}
-          onOpen={() => setOpen(true)}
+          onClose={(e) => handleSetOpen(e,false)}
+          onOpen={(e) => handleSetOpen(e,true)}
           value={type}
           onChange={handleChange}
         >

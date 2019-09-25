@@ -1,21 +1,31 @@
 import uuid from 'uuid';
+import moment from 'moment';
+import config from '../config';
 
 // ADD_MOVIE
 export const addMovie = (
   {
-    description = '', 
-    note = '', 
-    amount = 0, 
-    createdAt = 0
+    title = "Movie Title",
+    year = config.yearsMin,
+    poster = "",
+    type = config.types[0],
+    room = config.rooms[0],
+    datetime = moment().add(2, 'hours').format('YYYY-MM-DD HH:mm:ss'),
+    duration = 120,
+    seats = 45
     } = {}
   ) => ({
     type: 'ADD_MOVIE',
-    expense: {
+    movie: {
       id: uuid(),
-      description,
-      note,
-      amount,
-      createdAt
+      title,
+      year,
+      poster,
+      type,
+      room,
+      datetime,
+      duration,
+      seats
     }   
 });
 

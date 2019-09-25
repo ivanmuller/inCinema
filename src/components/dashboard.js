@@ -4,7 +4,7 @@ import config from '../config';
 
 // Redux Store
 import { connect } from 'react-redux';
-import { editAllMovies } from '../actions/movies.js';
+import { addMovie, editAllMovies } from '../actions/movies.js';
 
 // My components
 import Movie from './movie';
@@ -30,20 +30,31 @@ import Icon from '@material-ui/core/Icon';
 
 class Dashboard extends React.Component {
   state = {
-    isPaneOpen: false
-  }
+    isPaneOpen: false,
+    showExampleModal: false
+  };
   componentDidMount() {
     Modal.setAppElement('#main');
-  }
+  };
   onEditHandle = (r) => {
     if (!r.error) {
       this.props.dispatch(editAllMovies(r.jsObject));
     }
-  }
+  };
+  handleOpenModal = () => {
+    this.setState({ showExampleModal: true });
+  };
+  handleCloseModal = () => {
+    this.setState({ showExampleModal: false });
+  };
+  handleAddMovie = () => {
+    this.props.dispatch(addMovie());
+  };
   render() {
     return (
       <div id="main">
         <MuiThemeProvider theme={theme}>
+
           <Container>
             <SlidingPane
               className="custom-sliding-pane"
@@ -68,16 +79,18 @@ class Dashboard extends React.Component {
               </Flipper>
             </Grid>
           </Container>
+
           <AppBar className="appBar" position="fixed" color="default">
             <Container>
               <Toolbar disableGutters={true}>
                 <Grid container alignItems="flex-start" justify="flex-end" direction="row">
-                  <Button variant="contained" onClick={() => this.setState({ isPaneOpen: !this.state.isPaneOpen })}>Advanced Edition <Icon style={{ 'marginLeft': '5px' }}>code</Icon></Button>
+                  <Button variant="contained" onClick={this.handleAddMovie}>Add Movie</Button>
+                  <Button style={{ 'marginLeft': '1em' }} variant="contained" onClick={() => this.setState({ isPaneOpen: !this.state.isPaneOpen })}>Advanced Edition <Icon style={{ 'marginLeft': '5px' }}>code</Icon></Button>
                   <Button style={{ 'marginLeft': '1em' }} color="primary" variant="contained">Deploy <Icon style={{ 'marginLeft': '5px' }}>screen_share</Icon></Button>
                 </Grid>
               </Toolbar>
             </Container>
-          </AppBar>
+          </AppBar>          
         </MuiThemeProvider>
       </div>
     )

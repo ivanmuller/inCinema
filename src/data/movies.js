@@ -6,7 +6,7 @@ export default [
     poster: "https://centralcinema865.com/wp-content/uploads/2018/05/81ERtO24ZbL._RI_.jpg",
     type: "Imax 3D",
     room: "14",
-    datetime: "2019-09-06 01:00:00",
+    datetime: "2019-09-25 01:00:00",
     duration: 120,
     seats: 0
   },
@@ -17,7 +17,7 @@ export default [
     poster: "https://i.pinimg.com/originals/5f/7d/94/5f7d941cd12e39b15ad99a175e1d4858.jpg",
     type: "Classic",
     room: "11",
-    datetime: "2019-09-06 02:40:00",
+    datetime: "2019-09-25 02:40:00",
     duration: 90,
     seats: 25
   },
@@ -28,7 +28,7 @@ export default [
     poster: "https://www.plataformalavarden.gob.ar/wp-content/uploads/2016/01/Psycho-af.jpg",
     type: "Imax 3D",
     room: "5",
-    datetime: "2019-09-06 19:45:00",
+    datetime: "2019-09-25 19:45:00",
     duration: 60,
     seats: 2
   }

@@ -3,11 +3,12 @@ import config from '../config';
 
 // Redux Store
 import { connect } from 'react-redux';
-import { editMovie } from '../actions/movies.js';
+import { editMovie, removeMovie } from '../actions/movies.js';
 
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 
+import MoviePoster from './movie-poster';
 import MovieTitle from './movie-title';
 import MovieSeats from './movie-seats';
 import MovieRoom from './movie-room';
@@ -26,8 +27,13 @@ class Movie extends React.Component {
   handleDateChange = (date) => {
     this.props.dispatch(editMovie(this.props.id,{'datetime': date.format('YYYY-MM-DD HH:mm:ss')}));
   };
-  setDatePickerOpen = (status) => {
-    this.setState({ pickerIsOpen: status })
+  handleRemoveMovie = (e) => {
+    this.props.dispatch(removeMovie({id: this.props.id}));
+    e.preventDefault();
+  };
+  setDatePickerOpen = (e, status) => {
+    this.setState({ pickerIsOpen: status });
+    if(e){e.preventDefault()}
   };
   handleDate = () => {
     const now = moment();
@@ -76,26 +82,27 @@ class Movie extends React.Component {
     return (
       <Grid item xs={12} className={[this.state.finished && 'finished', this.state.playing && 'playing'].join(" ")}>
         <Grid container spacing={2}>
-          <Grid item xs={1}><img src={poster ? poster : "https://placeimg.com/640/960/nature/grayscale"} width="100%" /> </Grid>
+          <Grid item xs={1}><MoviePoster id={id}/></Grid>
           <Grid item xs={4}>
             <MovieTitle id={id} processed={{...this.state}} />
           </Grid>
           <Grid item xs={3}>
-            <a href="#" onClick={() => this.setDatePickerOpen(true)}>{this.state.movieTimeDifference}</a><br />
+            <a href="#" onClick={(e) => this.setDatePickerOpen(e,true)}>{this.state.movieTimeDifference}</a><br />
             <MuiPickersUtilsProvider utils={MomentUtils}>
               <DateTimePicker 
                 className="hide"
                 variant="inline" 
                 ampm={false}
                 open={this.state.pickerIsOpen} 
-                onOpen={() => this.setDatePickerOpen(true)} 
-                onClose={() => this.setDatePickerOpen(false)}
+                onOpen={(e) => this.setDatePickerOpen(e,true)} 
+                onClose={(e) => this.setDatePickerOpen(e,false)}
                 value={datetime} 
                 onChange={this.handleDateChange} />
             </MuiPickersUtilsProvider>
           </Grid>
           <Grid item xs={2}><MovieSeats id={id} processed={{ ...this.state }}/></Grid>
-          <Grid item xs={2}><MovieRoom id={id}/></Grid>
+          <Grid item xs={1}><MovieRoom id={id}/></Grid>
+          <Grid item xs={1}><a href="/#" onClick={this.handleRemoveMovie}>Remove</a></Grid>
         </Grid>
         <Divider />
       </Grid>
