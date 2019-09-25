@@ -28,6 +28,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Icon from '@material-ui/core/Icon';
 
+import Planets from './planets';
+
 class Dashboard extends React.Component {
   state = {
     isPaneOpen: false,
@@ -53,6 +55,7 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div id="main">
+        <Planets />
         <MuiThemeProvider theme={theme}>
 
           <Container>
