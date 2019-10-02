@@ -13,11 +13,11 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 
-function MoviePoster(props) {
+const MoviePoster = (props) => {
     const { id, poster } = props.movie;
-    const [open, setOpen] = React.useState(false);
-    const [preview = poster, setPreview] = React.useState(preview);
-    console.log(preview);
+    const [open, setOpen] = useState(false);
+    const [preview = poster, setPreview] = useState(preview);
+
     const handleClickOpen = (e) => {
       setOpen(true);
       e.preventDefault();

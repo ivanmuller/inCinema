@@ -28,12 +28,13 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Icon from '@material-ui/core/Icon';
 
-import Planets from './planets';
+import AddMovieDialogs from './movie-add';
+import AddMovieButtons from './movie-add-buttons';
 
 class Dashboard extends React.Component {
   state = {
     isPaneOpen: false,
-    showExampleModal: false
+    openDialogSearchMovie: false
   };
   componentDidMount() {
     Modal.setAppElement('#main');
@@ -43,19 +44,15 @@ class Dashboard extends React.Component {
       this.props.dispatch(editAllMovies(r.jsObject));
     }
   };
-  handleOpenModal = () => {
-    this.setState({ showExampleModal: true });
+  handleOpenDialogSearchMovie = (status) => {
+    this.setState({ openDialogSearchMovie: status });
   };
-  handleCloseModal = () => {
-    this.setState({ showExampleModal: false });
-  };
-  handleAddMovie = () => {
+  handleAddMovieManual = () => {
     this.props.dispatch(addMovie());
   };
   render() {
     return (
       <div id="main">
-        <Planets />
         <MuiThemeProvider theme={theme}>
 
           <Container>
@@ -87,13 +84,16 @@ class Dashboard extends React.Component {
             <Container>
               <Toolbar disableGutters={true}>
                 <Grid container alignItems="flex-start" justify="flex-end" direction="row">
-                  <Button variant="contained" onClick={this.handleAddMovie}>Add Movie</Button>
+                  <AddMovieButtons handleAddMovieManual={this.handleAddMovieManual} handleOpenDialogSearchMovie={this.handleOpenDialogSearchMovie} />
                   <Button style={{ 'marginLeft': '1em' }} variant="contained" onClick={() => this.setState({ isPaneOpen: !this.state.isPaneOpen })}>Advanced Edition <Icon style={{ 'marginLeft': '5px' }}>code</Icon></Button>
                   <Button style={{ 'marginLeft': '1em' }} color="primary" variant="contained">Deploy <Icon style={{ 'marginLeft': '5px' }}>screen_share</Icon></Button>
                 </Grid>
               </Toolbar>
             </Container>
-          </AppBar>          
+          </AppBar>  
+            
+          <AddMovieDialogs handleOpenDialogSearchMovie={this.handleOpenDialogSearchMovie} openDialogSearchMovie={this.state.openDialogSearchMovie} />
+
         </MuiThemeProvider>
       </div>
     )

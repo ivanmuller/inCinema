@@ -92,7 +92,7 @@ class Movie extends React.Component {
               <DateTimePicker 
                 className="hide"
                 variant="inline" 
-                ampm={false}
+                ampm={true}
                 open={this.state.pickerIsOpen} 
                 onOpen={(e) => this.setDatePickerOpen(e,true)} 
                 onClose={(e) => this.setDatePickerOpen(e,false)}
