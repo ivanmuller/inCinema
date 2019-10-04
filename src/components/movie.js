@@ -5,8 +5,8 @@ import config from '../config';
 import { connect } from 'react-redux';
 import { editMovie, removeMovie } from '../actions/movies.js';
 
-import Grid from '@material-ui/core/Grid';
-import Divider from '@material-ui/core/Divider';
+import Icon from '@material-ui/core/Icon';
+import Card from '@material-ui/core/Card';
 
 import MoviePoster from './movie-poster';
 import MovieTitle from './movie-title';
@@ -44,20 +44,22 @@ class Movie extends React.Component {
       //console.log(moment.utc(movieTime.diff(now)).format("HH:mm:ss"));
       const humanDiff = moment(movieTimeFinished).fromNow(true);
       this.setState({
-        movieTimeDifference: `Finished ${humanDiff} ago`,
+        movieTimeDifference: `<span>Finished</span> ${humanDiff} ago`,
         playing: false,
         finished: true
       });
     } else if(movieTime.isBefore(now)) {//already started movie
       //console.log(moment.utc(now.diff(movieTime)).format("HH:mm:ss"));
       this.setState({
-        movieTimeDifference: `Started ${humanDiff} ago`,
+        movieTimeDifference: `
+          <span>Started</span> ${humanDiff} ago
+        `,
         playing: true,
         finished: false
       });
     }else {//not started movie
       this.setState({
-        movieTimeDifference: `Starts in ${humanDiff}`,
+        movieTimeDifference: `<span>Starts in</span> ${humanDiff}`,
         playing: false,
         finished: false
       });
@@ -78,34 +80,32 @@ class Movie extends React.Component {
     }
   };  
   render() {
-    const { id, poster, datetime} = this.props;
+    const { id, datetime} = this.props;
     return (
-      <Grid item xs={12} className={[this.state.finished && 'finished', this.state.playing && 'playing'].join(" ")}>
-        <Grid container spacing={2}>
-          <Grid item xs={1}><MoviePoster id={id}/></Grid>
-          <Grid item xs={4}>
-            <MovieTitle id={id} processed={{...this.state}} />
-          </Grid>
-          <Grid item xs={3}>
-            <a href="#" onClick={(e) => this.setDatePickerOpen(e,true)}>{this.state.movieTimeDifference}</a><br />
-            <MuiPickersUtilsProvider utils={MomentUtils}>
-              <DateTimePicker 
-                className="hide"
-                variant="inline" 
-                ampm={true}
-                open={this.state.pickerIsOpen} 
-                onOpen={(e) => this.setDatePickerOpen(e,true)} 
-                onClose={(e) => this.setDatePickerOpen(e,false)}
-                value={datetime} 
-                onChange={this.handleDateChange} />
-            </MuiPickersUtilsProvider>
-          </Grid>
-          <Grid item xs={2}><MovieSeats id={id} processed={{ ...this.state }}/></Grid>
-          <Grid item xs={1}><MovieRoom id={id}/></Grid>
-          <Grid item xs={1}><a href="/#" onClick={this.handleRemoveMovie}>Remove</a></Grid>
-        </Grid>
-        <Divider />
-      </Grid>
+      <Card className={['event-item', this.state.finished && 'finished', this.state.playing && 'playing'].join(" ")}>
+
+        <MoviePoster id={id} />
+        <MovieTitle id={id} processed={{ ...this.state }} />
+
+        <div className="event-item-section event-time">
+          <a href="#" onClick={(e) => this.setDatePickerOpen(e, true)} dangerouslySetInnerHTML={{ __html: this.state.movieTimeDifference }}></a><br />
+          <MuiPickersUtilsProvider utils={MomentUtils}>
+            <DateTimePicker
+              className="hide"
+              variant="inline"
+              ampm={true}
+              open={this.state.pickerIsOpen}
+              onOpen={(e) => this.setDatePickerOpen(e, true)}
+              onClose={(e) => this.setDatePickerOpen(e, false)}
+              value={datetime}
+              onChange={this.handleDateChange} />
+          </MuiPickersUtilsProvider>
+        </div>
+
+        <MovieSeats id={id} processed={{ ...this.state }} />
+        <MovieRoom id={id} />
+        <div className="event-actions"><a href="/#" onClick={this.handleRemoveMovie}><Icon>cancel_presentation</Icon></a></div>
+      </Card>
     )
   }
 }

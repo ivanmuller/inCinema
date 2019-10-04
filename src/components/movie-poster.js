@@ -6,6 +6,7 @@ import { editMovie } from '../actions/movies.js';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
+
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -35,7 +36,7 @@ const MoviePoster = (props) => {
       setPreview(preview);
     };
     return (
-      <React.Fragment>
+      <div className="event-item-section event-poster">
         <a onClick={handleClickOpen}>
           <img src={poster ? poster : "https://placeimg.com/640/960/nature/grayscale"} width="100%" />
         </a>
@@ -72,7 +73,7 @@ const MoviePoster = (props) => {
             </Grid>
           </Grid>
         </Dialog>
-      </React.Fragment>
+      </div>
     )
 }
 

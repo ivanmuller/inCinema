@@ -20,7 +20,7 @@ function MovieType(props) {
     if (e) { e.preventDefault() }
   };
   return (
-    <React.Fragment>
+    <div className="event-type">
         <a href="#" onClick={(e) => handleSetOpen(e,true)}>{type}</a><br/>
         <Select
           className="hide"
@@ -36,7 +36,7 @@ function MovieType(props) {
             )
           })}
         </Select>
-    </React.Fragment>
+    </div>
   )
 }
 

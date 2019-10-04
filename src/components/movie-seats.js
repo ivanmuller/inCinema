@@ -27,25 +27,25 @@ function MovieSeats(props) {
     let renderedIcons = [];
     if (seats <= 10) {
       for (let i = 0; i < seats; i++) {
-        renderedIcons.push(<Icon key={i} color="error" className="blink-1">event_seat</Icon>);
+        renderedIcons.push(<Icon key={i} color="error" fontSize="large">event_seat</Icon>);
       }
       return (
-        <React.Fragment>{renderedIcons}</React.Fragment>
+        <div className="icons-seats blink-1">{renderedIcons}</div>
       )
     }else{
       return (
-        <React.Fragment><Icon>event_seat</Icon> {seats}+</React.Fragment>
+        <div className="icons-seats"><Icon fontSize="large">event_seat</Icon> {seats}+</div>
       )
     }
     
   };
   return (
-    <React.Fragment>
-      <p>{handleSeats()}</p>
+    <div className="event-item-section event-tickets">
+      {handleSeats()} <br />
       {(seats > 0 && !finished) && 
-        <p>{handleSeatsIcons()}</p>
+        handleSeatsIcons()
       }
-    </React.Fragment>
+    </div>
   )
 }
 

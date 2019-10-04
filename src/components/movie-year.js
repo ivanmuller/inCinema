@@ -28,8 +28,8 @@ function MovieYear(props) {
     return renderedOptions
   }
   return (
-    <span>
-        <a href="#" onClick={(e) => handleOpenState(e,true)}>{year}</a>
+    <div className="event-year">
+      <a href="#" onClick={(e) => handleOpenState(e, true)}>{year}</a><br />
         <Select
           className="hide"
           open={open}
@@ -40,7 +40,7 @@ function MovieYear(props) {
         >
         {getYearsSelector()}
         </Select>
-    </span>
+    </div>
   )
 }
 

@@ -9,7 +9,7 @@ import MovieType from './movie-type';
 
 import Icon from '@material-ui/core/Icon';
 
-function MovieTitle(props) {
+const MovieTitle = (props) => {
     const { title, id} = props.movie;
     const { playing } = props.processed;
     const handleTitleChange = (e) => {
@@ -17,13 +17,14 @@ function MovieTitle(props) {
       props.dispatch(editMovie(id, { title }));
     };
     return (
-      <React.Fragment>
-        <h3>
+      <div className="event-item-section event-title">
+        <h2>
           {playing && <Icon className="blink-1">play_arrow</Icon>}
-          <input type="text" onChange={handleTitleChange} size={title.length} value={title} /> | {<MovieYear id={id} />}
-        </h3>
+          <input type="text" onChange={handleTitleChange} size={title.length} value={title} />
+        </h2>
         {<MovieType id={id} />}
-      </React.Fragment>
+        {<MovieYear id={id} />}
+      </div>
     )
 }
 

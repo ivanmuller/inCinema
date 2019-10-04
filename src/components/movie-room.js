@@ -20,8 +20,8 @@ function MovieRoom({dispatch,movie}) {
     if (e) { e.preventDefault() }
   };
   return (
-    <React.Fragment>
-        <a href="#" onClick={(e) => handleSetOpen(e,true)}>Room {room}</a><br/>
+    <div className="event-item-section event-room">
+      <a href="#" onClick={(e) => handleSetOpen(e, true)}><span>Room</span> {room}</a><br/>
         <Select
           className="hide"
           open={open}
@@ -36,7 +36,7 @@ function MovieRoom({dispatch,movie}) {
             )
           })}
         </Select>
-    </React.Fragment>
+    </div>
   )
 }
 
