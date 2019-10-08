@@ -13,9 +13,9 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+import Icon from '@material-ui/core/Icon';
 
-const MoviePoster = (props) => {
-    const { id, poster } = props.movie;
+const MoviePoster = ({ playing, dispatch, movie: { id, poster}}) => {
     const [open, setOpen] = useState(false);
     const [preview = poster, setPreview] = useState(preview);
 
@@ -28,7 +28,7 @@ const MoviePoster = (props) => {
     };
     const handlePosterChange = () => {
       const poster = preview;
-      props.dispatch(editMovie(id, { poster }));
+      dispatch(editMovie(id, { poster }));
       setOpen(false);
     };
     const handlePreviewChange = (e) => {
@@ -37,6 +37,7 @@ const MoviePoster = (props) => {
     };
     return (
       <div className="event-item-section event-poster">
+        {playing && <Icon className="icon blink-1">play_arrow</Icon>}
         <a onClick={handleClickOpen}>
           <img src={poster ? poster : "https://placeimg.com/640/960/nature/grayscale"} width="100%" />
         </a>
@@ -47,15 +48,17 @@ const MoviePoster = (props) => {
             </Grid>
             <Grid item xs={8}>
               <DialogTitle id="form-dialog-title">Change Image</DialogTitle>
-              <DialogContent>
+              <DialogContent dividers>
                 <DialogContentText>
                   Please add the url of the image here
               </DialogContentText>
                 <TextField
                   autoFocus
+                  multiline 
                   margin="dense"
+                  rowsMax="4"
+                  helperText="Image URL"
                   id="name"
-                  label="Image URL"
                   type="text"
                   fullWidth 
                   onChange={handlePreviewChange}
@@ -63,12 +66,8 @@ const MoviePoster = (props) => {
                 />
               </DialogContent>
               <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                  Cancel
-              </Button>
-                <Button onClick={handlePosterChange} color="primary">
-                  Modify
-              </Button>
+                <Button onClick={handleClose} color="secondary">Cancel</Button>
+                <Button onClick={handlePosterChange} color="primary">Modify</Button>
               </DialogActions>
             </Grid>
           </Grid>

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from 'react-redux';
 import { addMovie } from '../actions/movies.js';
 
+import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
@@ -11,6 +12,10 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
+
+import moment from 'moment';
+import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import MomentUtils from '@date-io/moment';
 
 import AsyncSelect from 'react-select/async';
 import { throttle } from 'lodash';
@@ -28,6 +33,7 @@ const AddMovieDialogs = ({ handleOpenDialogSearchMovie, openDialogSearchMovie, d
   const [movieId, setMovieId] = useState();
   const [selectedMovie, setSelectedMovie] = useState('');
   const [openPreviewModal, setOpenPreviewModal] = useState(false);
+  const [selectedDate, setSelectedDate] = useState(moment().format());
 
   const getOptions = (inputValue, callback) => {
 
@@ -59,8 +65,6 @@ const AddMovieDialogs = ({ handleOpenDialogSearchMovie, openDialogSearchMovie, d
           if (data) {
             setSelectedMovie(data);
             setErrors('');
-            setOpenPreviewModal(true);
-            handleOpenDialogSearchMovie(false);
           } else {
             setErrors('No results');
           }
@@ -71,15 +75,27 @@ const AddMovieDialogs = ({ handleOpenDialogSearchMovie, openDialogSearchMovie, d
     }
   }, [movieId]);
 
+  useEffect(() => {
+    if (selectedMovie){
+      setOpenPreviewModal(true);
+      handleOpenDialogSearchMovie(false);
+    }    
+  }, [selectedMovie]);
+
   const handleOpenPreviewModal = (status) => {
     setOpenPreviewModal(status);
   }
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+  };
 
   const handleAddMovie = () => {
     dispatch(addMovie({
       title: selectedMovie.title, 
       year: selectedMovie.release_date.split('-')[0],
       poster: 'https://image.tmdb.org/t/p/w500/' + selectedMovie.poster_path,
+      datetime: selectedDate.format('YYYY-MM-DD HH:mm:ss'),
       duration: selectedMovie.runtime
     })
     );
@@ -88,7 +104,7 @@ const AddMovieDialogs = ({ handleOpenDialogSearchMovie, openDialogSearchMovie, d
 
   return (
     <>
-      <Dialog open={openDialogSearchMovie} onClose={() => handleOpenDialogSearchMovie(false)} aria-labelledby="form-dialog-title" maxWidth="lg" className="search-movie-dialog">
+      <Dialog open={openDialogSearchMovie} onClose={() => handleOpenDialogSearchMovie(false)} aria-labelledby="form-dialog-title" maxWidth="lg" className="event-add-search">
         <DialogTitle id="form-dialog-title">Search in Movie Database</DialogTitle>
         <DialogContent dividers>
           <DialogContentText>
@@ -104,33 +120,43 @@ const AddMovieDialogs = ({ handleOpenDialogSearchMovie, openDialogSearchMovie, d
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button color="primary" onClick={() => handleOpenDialogSearchMovie(false)}>
-            Cancel
-          </Button>
+          <Button color="secondary" onClick={() => handleOpenDialogSearchMovie(false)}>Cancel</Button>
         </DialogActions>
       </Dialog>
 
-      <Dialog open={openPreviewModal} onClose={() => handleOpenPreviewModal(false)} aria-labelledby="form-dialog-title" maxWidth="md">
+      <Dialog open={openPreviewModal} className="event-add-preview" onClose={() => handleOpenPreviewModal(false)} aria-labelledby="form-dialog-title" maxWidth="md">
         <Grid container>
           <Grid item xs={4}>
             {selectedMovie.poster_path && <img src={`https://image.tmdb.org/t/p/w500${selectedMovie.poster_path}`} width="100%" />}
           </Grid>
           <Grid item xs={8}>
-            <DialogTitle id="form-dialog-title">{selectedMovie.title}</DialogTitle>
-            <DialogContent>
-              <DialogContentText>
-                {selectedMovie.overview} <br />
-                Duration: {selectedMovie.runtime}
-              </DialogContentText>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={() => handleOpenPreviewModal(false)} color="secondary">
-                Cancel
-              </Button>
-              <Button onClick={handleAddMovie} color="primary">
-                Add Movie
-              </Button>
-            </DialogActions>
+            <Box display="flex" flexDirection="column" height="100%">
+              <DialogTitle id="form-dialog-title">{selectedMovie.title}</DialogTitle>
+              <DialogContent dividers>
+                <DialogContentText>
+                  {selectedMovie.overview} 
+                </DialogContentText>
+                <DialogContentText>
+                  Duration: {selectedMovie.runtime} minutes
+                </DialogContentText>
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                  <DateTimePicker
+                    variant="inline"
+                    label="Date and Time"
+                    value={selectedDate}
+                    onChange={handleDateChange}
+                  />
+                </MuiPickersUtilsProvider>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={() => handleOpenPreviewModal(false)} color="secondary">
+                  Cancel
+                </Button>
+                <Button onClick={handleAddMovie} color="primary">
+                  Add Movie
+                </Button>
+              </DialogActions>
+            </Box>
           </Grid>
         </Grid>
       </Dialog>

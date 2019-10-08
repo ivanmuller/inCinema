@@ -84,8 +84,8 @@ class Movie extends React.Component {
     return (
       <Card className={['event-item', this.state.finished && 'finished', this.state.playing && 'playing'].join(" ")}>
 
-        <MoviePoster id={id} />
-        <MovieTitle id={id} processed={{ ...this.state }} />
+        <MoviePoster id={id} playing={this.state.playing} />
+        <MovieTitle id={id} />
 
         <div className="event-item-section event-time">
           <a href="#" onClick={(e) => this.setDatePickerOpen(e, true)} dangerouslySetInnerHTML={{ __html: this.state.movieTimeDifference }}></a><br />

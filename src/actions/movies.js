@@ -5,7 +5,7 @@ import config from '../config';
 // ADD_MOVIE
 export const addMovie = (
   {
-    title = "Movie Title",
+    title = "",
     year = config.yearsMin,
     poster = "",
     type = config.types[0],

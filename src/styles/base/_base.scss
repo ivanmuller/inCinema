@@ -31,13 +31,13 @@ button:disabled {
   background:transparent;
   .slide-pane__content {
     padding:0;
-  }
-}
-
-#advEditor {
-  &-body {
-    background:rgba(30,30,30,0.87) !important;
-    font-size: $size-s !important;
+    padding-bottom:$app-bar-height;
+    #advEditor {
+      &-body {
+        background:rgba(30,30,30,0.87) !important;
+        font-size: $size-s !important;
+      }
+    }
   }
 }
 
@@ -47,14 +47,4 @@ button:disabled {
   &::before {
     height:0;
   }
-}
-
-.appBar {
-  bottom:0;
-  top: auto !important
-}
-
-.search-movie-dialog .MuiPaper-root {
-  min-height:400px;
-  min-width:400px;
 }

@@ -9,7 +9,22 @@
   }
   .event-poster {
     flex:0 0 140px;
-    padding:0
+    padding:0;
+    position:relative;
+    .icon {
+      width:7rem;
+      height:7rem;
+      left:50%;
+      top:50%;
+      margin-top:-3.5rem;
+      margin-left:-3.5rem;
+      font-size:7rem;
+      color:#FFF;
+      border-radius:100%;
+      border:2px solid #FFF;
+      position:absolute;
+      box-shadow:0 0 4px #000;
+    }
   }
   .event-title {
     flex:0 0 35%;

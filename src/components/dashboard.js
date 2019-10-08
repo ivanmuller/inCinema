@@ -52,7 +52,6 @@ class Dashboard extends React.Component {
     return (
       <div id="main">
         <MuiThemeProvider theme={theme}>
-
             <SlidingPane
               className="custom-sliding-pane"
               isOpen={this.state.isPaneOpen}
@@ -74,14 +73,12 @@ class Dashboard extends React.Component {
                 {this.props.movies.map((movie, index) => <Movie key={index} {...movie} index={index} />)}
             </div>
 
-            <AppBar className="appBar" position="fixed" color="default">
-              <Icon>stars</Icon> {config.appTitle}
-              <Toolbar disableGutters={true}>
-                <Grid container alignItems="flex-start" justify="flex-end" direction="row">
-                  <AddMovieButtons handleAddMovieManual={this.handleAddMovieManual} handleOpenDialogSearchMovie={this.handleOpenDialogSearchMovie} />
-                  <Button style={{ 'marginLeft': '1em' }} variant="contained" onClick={() => this.setState({ isPaneOpen: !this.state.isPaneOpen })}>Advanced Edition <Icon style={{ 'marginLeft': '5px' }}>code</Icon></Button>
-                  <Button style={{ 'marginLeft': '1em', 'marginRight':'3rem' }} color="primary" variant="contained">Deploy <Icon style={{ 'marginLeft': '5px' }}>screen_share</Icon></Button>
-                </Grid>
+            <AppBar className="app-bar" position="fixed" color="default">
+            <Toolbar disableGutters={true} className="tool-bar">
+                <h1>{config.appTitle}</h1>
+                <AddMovieButtons handleAddMovieManual={this.handleAddMovieManual} handleOpenDialogSearchMovie={this.handleOpenDialogSearchMovie} />
+                <Button variant="contained" onClick={() => this.setState({ isPaneOpen: !this.state.isPaneOpen })}>Advanced Edition <Icon>code</Icon></Button>
+                <Button color="primary" variant="contained">Deploy <Icon>screen_share</Icon></Button>
               </Toolbar>
             </AppBar>  
             
@@ -100,7 +97,6 @@ const orderedMovies = (movies) => {
 };
 
 const mapStateToProps = (state) => {
-  //console.log(orderedMovies(state.movies));
   return {
     movies: orderedMovies(state.movies)
   }
