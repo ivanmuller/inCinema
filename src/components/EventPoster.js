@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 
 // Redux Store
 import { connect } from 'react-redux';
-import { editMovie } from '../actions/movies.js';
+import { editEvent } from '../actions/events';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -15,7 +15,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 
-const MoviePoster = ({ playing, dispatch, movie: { id, poster}}) => {
+const EventPoster = ({ playing, dispatch, event: { id, poster}}) => {
     const [open, setOpen] = useState(false);
     const [preview = poster, setPreview] = useState(preview);
 
@@ -28,7 +28,7 @@ const MoviePoster = ({ playing, dispatch, movie: { id, poster}}) => {
     };
     const handlePosterChange = () => {
       const poster = preview;
-      dispatch(editMovie(id, { poster }));
+      dispatch(editEvent(id, { poster }));
       setOpen(false);
     };
     const handlePreviewChange = (e) => {
@@ -78,8 +78,8 @@ const MoviePoster = ({ playing, dispatch, movie: { id, poster}}) => {
 
 const mapStateToProps = (state, props) => {
   return {
-    movie: state.movies.find((movie) => movie.id === props.id)
+    event: state.events.find((event) => event.id === props.id)
   };
 }
 
-export default connect(mapStateToProps)(MoviePoster);
+export default connect(mapStateToProps)(EventPoster);

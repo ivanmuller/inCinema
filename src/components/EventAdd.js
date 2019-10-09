@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 // Redux Store
 import { connect } from 'react-redux';
-import { addMovie } from '../actions/movies.js';
+import { addEvent } from '../actions/events';
 
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -28,13 +28,12 @@ const mapOptionsToValues = options => {
   }));
 };
 
-const AddMovieDialogs = ({ handleOpenDialogSearchMovie, openDialogSearchMovie, dispatch }) => {
+const EventAdd = ({ handleOpenDialogSearchEvent, openDialogSearchEvent, dispatch }) => {
   const [hasError, setErrors] = useState('');
-  const [movieId, setMovieId] = useState();
-  const [selectedMovie, setSelectedMovie] = useState('');
+  const [eventId, setEventId] = useState();
+  const [selectedEvent, setSelectedEvent] = useState('');
   const [openPreviewModal, setOpenPreviewModal] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(moment().format());
-
+  const [selectedDate, setSelectedDate] = useState(moment());
   const getOptions = (inputValue, callback) => {
 
     if (!inputValue) {
@@ -59,11 +58,11 @@ const AddMovieDialogs = ({ handleOpenDialogSearchMovie, openDialogSearchMovie, d
   const getOptionsThrottled = throttle(getOptions, 1000);
 
   useEffect(() => {
-    if (movieId) {
-      fetch(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${config.api.moviedb}&language=en-US`).then(response => {
+    if (eventId) {
+      fetch(`https://api.themoviedb.org/3/movie/${eventId}?api_key=${config.api.moviedb}&language=en-US`).then(response => {
         response.json().then(data => {
           if (data) {
-            setSelectedMovie(data);
+            setSelectedEvent(data);
             setErrors('');
           } else {
             setErrors('No results');
@@ -73,14 +72,14 @@ const AddMovieDialogs = ({ handleOpenDialogSearchMovie, openDialogSearchMovie, d
         });
       });
     }
-  }, [movieId]);
+  }, [eventId]);
 
   useEffect(() => {
-    if (selectedMovie){
+    if (selectedEvent){
       setOpenPreviewModal(true);
-      handleOpenDialogSearchMovie(false);
+      handleOpenDialogSearchEvent(false);
     }    
-  }, [selectedMovie]);
+  }, [selectedEvent]);
 
   const handleOpenPreviewModal = (status) => {
     setOpenPreviewModal(status);
@@ -90,13 +89,14 @@ const AddMovieDialogs = ({ handleOpenDialogSearchMovie, openDialogSearchMovie, d
     setSelectedDate(date);
   };
 
-  const handleAddMovie = () => {
-    dispatch(addMovie({
-      title: selectedMovie.title, 
-      year: selectedMovie.release_date.split('-')[0],
-      poster: 'https://image.tmdb.org/t/p/w500/' + selectedMovie.poster_path,
+  const handleAddEvent = () => {
+    console.log(selectedDate);
+    dispatch(addEvent({
+      title: selectedEvent.title, 
+      year: selectedEvent.release_date.split('-')[0],
+      poster: 'https://image.tmdb.org/t/p/w500/' + selectedEvent.poster_path,
       datetime: selectedDate.format('YYYY-MM-DD HH:mm:ss'),
-      duration: selectedMovie.runtime
+      duration: selectedEvent.runtime
     })
     );
     setOpenPreviewModal(false);
@@ -104,7 +104,7 @@ const AddMovieDialogs = ({ handleOpenDialogSearchMovie, openDialogSearchMovie, d
 
   return (
     <>
-      <Dialog open={openDialogSearchMovie} onClose={() => handleOpenDialogSearchMovie(false)} aria-labelledby="form-dialog-title" maxWidth="lg" className="event-add-search">
+      <Dialog open={openDialogSearchEvent} onClose={() => handleOpenDialogSearchEvent(false)} aria-labelledby="form-dialog-title" maxWidth="lg" className="event-add-search">
         <DialogTitle id="form-dialog-title">Search in Movie Database</DialogTitle>
         <DialogContent dividers>
           <DialogContentText>
@@ -114,30 +114,30 @@ const AddMovieDialogs = ({ handleOpenDialogSearchMovie, openDialogSearchMovie, d
               autoFocus
               cacheOptions
               defaultOptions
-              onChange={(q) => setMovieId(q.value)}
+              onChange={(q) => setEventId(q.value)}
               loadOptions={getOptionsThrottled}
             />
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button color="secondary" onClick={() => handleOpenDialogSearchMovie(false)}>Cancel</Button>
+          <Button color="secondary" onClick={() => handleOpenDialogSearchEvent(false)}>Cancel</Button>
         </DialogActions>
       </Dialog>
 
       <Dialog open={openPreviewModal} className="event-add-preview" onClose={() => handleOpenPreviewModal(false)} aria-labelledby="form-dialog-title" maxWidth="md">
         <Grid container>
           <Grid item xs={4}>
-            {selectedMovie.poster_path && <img src={`https://image.tmdb.org/t/p/w500${selectedMovie.poster_path}`} width="100%" />}
+            {selectedEvent.poster_path && <img src={`https://image.tmdb.org/t/p/w500${selectedEvent.poster_path}`} width="100%" />}
           </Grid>
           <Grid item xs={8}>
             <Box display="flex" flexDirection="column" height="100%">
-              <DialogTitle id="form-dialog-title">{selectedMovie.title}</DialogTitle>
+              <DialogTitle id="form-dialog-title">{selectedEvent.title}</DialogTitle>
               <DialogContent dividers>
                 <DialogContentText>
-                  {selectedMovie.overview} 
+                  {selectedEvent.overview} 
                 </DialogContentText>
                 <DialogContentText>
-                  Duration: {selectedMovie.runtime} minutes
+                  Duration: {selectedEvent.runtime} minutes
                 </DialogContentText>
                 <MuiPickersUtilsProvider utils={MomentUtils}>
                   <DateTimePicker
@@ -152,7 +152,7 @@ const AddMovieDialogs = ({ handleOpenDialogSearchMovie, openDialogSearchMovie, d
                 <Button onClick={() => handleOpenPreviewModal(false)} color="secondary">
                   Cancel
                 </Button>
-                <Button onClick={handleAddMovie} color="primary">
+                <Button onClick={handleAddEvent} color="primary">
                   Add Movie
                 </Button>
               </DialogActions>
@@ -165,8 +165,8 @@ const AddMovieDialogs = ({ handleOpenDialogSearchMovie, openDialogSearchMovie, d
 
 const mapStateToProps = (state, props) => {
   return {
-    movies: state.movies
+    events: state.events
   };
 }
 
-export default connect(mapStateToProps)(AddMovieDialogs);
+export default connect(mapStateToProps)(EventAdd);

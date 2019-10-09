@@ -3,36 +3,36 @@ import config from '../config';
 
 // Redux Store
 import { connect } from 'react-redux';
-import { editMovie } from '../actions/movies.js';
+import { editEvent } from '../actions/events';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
-function MovieRoom({dispatch,movie}) {
-  const {room,id} = movie;
+function EventType(props) {
+  const { type, id } = props.event;
   const [open, setOpen] = useState(false);
-  const handleRoomChange = (e) => {
-    const room = e.target.value;
-    dispatch(editMovie(id, { room }));
-  };
+  const handleChange = (e) => {
+    const type = e.target.value;
+    props.dispatch(editEvent(id, { type }));
+  };  
   const handleSetOpen = (e, status) => {
     setOpen(status);
     if (e) { e.preventDefault() }
   };
   return (
-    <div className="event-item-section event-room">
-      <a href="#" onClick={(e) => handleSetOpen(e, true)}><span>Room</span> {room}</a><br/>
+    <div className="event-type">
+        <a href="#" onClick={(e) => handleSetOpen(e,true)}>{type}</a><br/>
         <Select
           className="hide"
           open={open}
           onClose={(e) => handleSetOpen(e,false)}
           onOpen={(e) => handleSetOpen(e,true)}
-          value={room}
-          onChange={handleRoomChange}
+          value={type}
+          onChange={handleChange}
         >
-          {config.rooms.map((roomItem,i) => {
+          {config.types.map((typeItem,i) => {
             return (
-              <MenuItem key={i} value={roomItem}>{roomItem}</MenuItem>
+              <MenuItem key={i} value={typeItem}>{typeItem}</MenuItem>
             )
           })}
         </Select>
@@ -42,8 +42,8 @@ function MovieRoom({dispatch,movie}) {
 
 const mapStateToProps = (state, props) => {
   return {
-    movie: state.movies.find((movie) => movie.id === props.id)
+    event: state.events.find((event) => event.id === props.id)
   };
 }
 
-export default connect(mapStateToProps)(MovieRoom);
+export default connect(mapStateToProps)(EventType);

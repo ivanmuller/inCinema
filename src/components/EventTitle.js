@@ -2,32 +2,32 @@ import React from 'react';
 
 // Redux Store
 import { connect } from 'react-redux';
-import { editMovie } from '../actions/movies.js';
+import { editEvent } from '../actions/events';
 
-import MovieYear from './movie-year';
-import MovieType from './movie-type';
+import EventYear from './EventYear';
+import EventType from './EventType';
 
-const MovieTitle = (props) => {
-    const { title, id} = props.movie;
+const EventTitle = (props) => {
+    const { title, id} = props.event;
     const handleTitleChange = (e) => {
       const title = e.target.value;
-      props.dispatch(editMovie(id, { title }));
+      props.dispatch(editEvent(id, { title }));
     };
     return (
       <div className="event-item-section event-title">
         <h2>
           <input type="text" placeholder="Movie Title" onChange={handleTitleChange} size={title.length} value={title} />
         </h2>
-        {<MovieType id={id} />}
-        {<MovieYear id={id} />}
+        {<EventType id={id} />}
+        {<EventYear id={id} />}
       </div>
     )
 }
 
 const mapStateToProps = (state, props) => {
   return {
-    movie: state.movies.find((movie) => movie.id === props.id)
+    event: state.events.find((event) => event.id === props.id)
   };
 }
 
-export default connect(mapStateToProps)(MovieTitle);
+export default connect(mapStateToProps)(EventTitle);

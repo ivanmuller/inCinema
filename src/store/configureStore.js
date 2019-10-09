@@ -1,13 +1,11 @@
 import { createStore, combineReducers } from 'redux';
-import moviesReducer from '../reducers/movies';
-import filtersReducer from '../reducers/filters';
+import eventsReducer from '../reducers/events';
 
 // Store Creation
 export default () => {
   const store = createStore(
     combineReducers({
-      movies: moviesReducer,
-      filters: filtersReducer
+      events: eventsReducer
     }),
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
   );

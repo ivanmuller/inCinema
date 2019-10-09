@@ -3,36 +3,36 @@ import config from '../config';
 
 // Redux Store
 import { connect } from 'react-redux';
-import { editMovie } from '../actions/movies.js';
+import { editEvent } from '../actions/events';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
-function MovieType(props) {
-  const { type, id } = props.movie;
+function EventRoom({dispatch,event}) {
+  const {room,id} = event;
   const [open, setOpen] = useState(false);
-  const handleChange = (e) => {
-    const type = e.target.value;
-    props.dispatch(editMovie(id, { type }));
-  };  
+  const handleRoomChange = (e) => {
+    const room = e.target.value;
+    dispatch(editEvent(id, { room }));
+  };
   const handleSetOpen = (e, status) => {
     setOpen(status);
     if (e) { e.preventDefault() }
   };
   return (
-    <div className="event-type">
-        <a href="#" onClick={(e) => handleSetOpen(e,true)}>{type}</a><br/>
+    <div className="event-item-section event-room">
+      <a href="#" onClick={(e) => handleSetOpen(e, true)}><span>Room</span> {room}</a><br/>
         <Select
           className="hide"
           open={open}
           onClose={(e) => handleSetOpen(e,false)}
           onOpen={(e) => handleSetOpen(e,true)}
-          value={type}
-          onChange={handleChange}
+          value={room}
+          onChange={handleRoomChange}
         >
-          {config.types.map((typeItem,i) => {
+          {config.rooms.map((roomItem,i) => {
             return (
-              <MenuItem key={i} value={typeItem}>{typeItem}</MenuItem>
+              <MenuItem key={i} value={roomItem}>{roomItem}</MenuItem>
             )
           })}
         </Select>
@@ -42,8 +42,8 @@ function MovieType(props) {
 
 const mapStateToProps = (state, props) => {
   return {
-    movie: state.movies.find((movie) => movie.id === props.id)
+    event: state.events.find((event) => event.id === props.id)
   };
 }
 
-export default connect(mapStateToProps)(MovieType);
+export default connect(mapStateToProps)(EventRoom);

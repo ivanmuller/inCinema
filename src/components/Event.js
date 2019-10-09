@@ -3,32 +3,32 @@ import config from '../config';
 
 // Redux Store
 import { connect } from 'react-redux';
-import { editMovie, removeMovie } from '../actions/movies.js';
+import { editEvent, removeEvent } from '../actions/events';
 
 import Icon from '@material-ui/core/Icon';
 import Card from '@material-ui/core/Card';
 
-import MoviePoster from './movie-poster';
-import MovieTitle from './movie-title';
-import MovieSeats from './movie-seats';
-import MovieRoom from './movie-room';
+import EventPoster from './EventPoster';
+import EventTitle from './EventTitle';
+import EventSeats from './EventSeats';
+import EventRoom from './EventRoom';
 
 import moment from 'moment';
 import {DateTimePicker,  MuiPickersUtilsProvider} from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
 
-class Movie extends React.Component {
+class Event extends React.Component {
   state = {
-    movieTimeDifference: "",
+    timeDifference: "",
     playing: false,
     finished: false,
     pickerIsOpen: false
   };
   handleDateChange = (date) => {
-    this.props.dispatch(editMovie(this.props.id,{'datetime': date.format('YYYY-MM-DD HH:mm:ss')}));
+    this.props.dispatch(editEvent(this.props.id,{'datetime': date.format('YYYY-MM-DD HH:mm:ss')}));
   };
-  handleRemoveMovie = (e) => {
-    this.props.dispatch(removeMovie({id: this.props.id}));
+  handleRemoveEvent = (e) => {
+    this.props.dispatch(removeEvent({id: this.props.id}));
     e.preventDefault();
   };
   setDatePickerOpen = (e, status) => {
@@ -37,29 +37,27 @@ class Movie extends React.Component {
   };
   handleDate = () => {
     const now = moment();
-    const movieTime = moment(this.props.datetime);
-    const humanDiff = moment(movieTime).fromNow(true);
-    const movieTimeFinished = moment(this.props.datetime).add(this.props.duration, 'm');
-    if (now.isAfter(movieTimeFinished)) { //Finished Movie
-      //console.log(moment.utc(movieTime.diff(now)).format("HH:mm:ss"));
-      const humanDiff = moment(movieTimeFinished).fromNow(true);
+    const eventTime = moment(this.props.datetime);
+    const humanDiff = moment(eventTime).fromNow(true);
+    const eventTimeFinished = moment(this.props.datetime).add(this.props.duration, 'm');
+    if (now.isAfter(eventTimeFinished)) { //Finished Event
+      const humanDiff = moment(eventTimeFinished).fromNow(true);
       this.setState({
-        movieTimeDifference: `<span>Finished</span> ${humanDiff} ago`,
+        timeDifference: `<span>Finished</span> ${humanDiff} ago`,
         playing: false,
         finished: true
       });
-    } else if(movieTime.isBefore(now)) {//already started movie
-      //console.log(moment.utc(now.diff(movieTime)).format("HH:mm:ss"));
+    } else if(eventTime.isBefore(now)) {//already started event
       this.setState({
-        movieTimeDifference: `
+        timeDifference: `
           <span>Started</span> ${humanDiff} ago
         `,
         playing: true,
         finished: false
       });
-    }else {//not started movie
+    }else {//not started event
       this.setState({
-        movieTimeDifference: `<span>Starts in</span> ${humanDiff}`,
+        timeDifference: `<span>Starts in</span> ${humanDiff}`,
         playing: false,
         finished: false
       });
@@ -84,11 +82,11 @@ class Movie extends React.Component {
     return (
       <Card className={['event-item', this.state.finished && 'finished', this.state.playing && 'playing'].join(" ")}>
 
-        <MoviePoster id={id} playing={this.state.playing} />
-        <MovieTitle id={id} />
+        <EventPoster id={id} playing={this.state.playing} />
+        <EventTitle id={id} />
 
         <div className="event-item-section event-time">
-          <a href="#" onClick={(e) => this.setDatePickerOpen(e, true)} dangerouslySetInnerHTML={{ __html: this.state.movieTimeDifference }}></a><br />
+          <a href="#" onClick={(e) => this.setDatePickerOpen(e, true)} dangerouslySetInnerHTML={{ __html: this.state.timeDifference }}></a><br />
           <MuiPickersUtilsProvider utils={MomentUtils}>
             <DateTimePicker
               className="hide"
@@ -102,9 +100,11 @@ class Movie extends React.Component {
           </MuiPickersUtilsProvider>
         </div>
 
-        <MovieSeats id={id} processed={{ ...this.state }} />
-        <MovieRoom id={id} />
-        <div className="event-actions"><a href="/#" onClick={this.handleRemoveMovie}><Icon>cancel_presentation</Icon></a></div>
+        <EventSeats id={id} processed={{ ...this.state }} />
+        <EventRoom id={id} />
+        <div className="event-actions">
+          <a href="/#" onClick={this.handleRemoveEvent}><Icon>cancel_presentation</Icon></a>
+        </div>
       </Card>
     )
   }
@@ -112,8 +112,8 @@ class Movie extends React.Component {
 
 const mapStateToProps = (state, props) => {
   return {
-    movie: state.movies.find((movie) => movie.id === props.id)
+    events: state.events.find((event) => event.id === props.id)
   };
 }
 
-export default connect(mapStateToProps)(Movie);
+export default connect(mapStateToProps)(Event);

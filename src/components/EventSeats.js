@@ -4,9 +4,9 @@ import Icon from '@material-ui/core/Icon';
 // Redux Store
 import { connect } from 'react-redux';
 
-function MovieSeats(props) {
+const EventsSeats = (props) => {
   const { finished } = props.processed;
-  const { seats } = props.movie;
+  const { seats } = props.event;
   const handleSeats = () => {
     switch (true) {
       case (seats === 0 || finished):
@@ -51,8 +51,8 @@ function MovieSeats(props) {
 
 const mapStateToProps = (state, props) => {
   return {
-    movie: state.movies.find((movie) => movie.id === props.id)
+    event: state.events.find((event) => event.id === props.id)
   };
 }
 
-export default connect(mapStateToProps)(MovieSeats);
+export default connect(mapStateToProps)(EventsSeats);

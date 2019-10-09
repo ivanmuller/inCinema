@@ -2,8 +2,8 @@ import uuid from 'uuid';
 import moment from 'moment';
 import config from '../config';
 
-// ADD_MOVIE
-export const addMovie = (
+// ADD_EVENT
+export const addEvent = (
   {
     title = "",
     year = config.yearsMin,
@@ -15,8 +15,8 @@ export const addMovie = (
     seats = 45
     } = {}
   ) => ({
-    type: 'ADD_MOVIE',
-    movie: {
+    type: 'ADD_EVENT',
+    event: {
       id: uuid(),
       title,
       year,
@@ -29,23 +29,23 @@ export const addMovie = (
     }   
 });
 
-// REMOVE_MOVIE
-export const removeMovie = ({id} = {}) => ({
-  type: 'REMOVE_MOVIE',
+// REMOVE_EVENT
+export const removeEvent = ({id} = {}) => ({
+  type: 'REMOVE_EVENT',
   id
 });
 
-// EDIT_MOVIE
-export const editMovie = (id, updates) => ({
-  type: 'EDIT_MOVIE',
+// EDIT_EVENT
+export const editEvent = (id, updates) => ({
+  type: 'EDIT_EVENT',
   id,
   updates
 });
 
-// EDIT_MOVIE
-export const editAllMovies = (movies) => {
+// EDIT_ALL
+export const editAllEvents = (events) => {
   return ({
     type: 'EDIT_ALL',
-    movies
+    events
   })
 };

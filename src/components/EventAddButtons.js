@@ -9,7 +9,7 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 
-const AddMovieButtons = ({handleAddMovieManual, handleOpenDialogSearchMovie}) => {
+const EventAddButtons = ({handleAddEventManual, handleOpenDialogSearchEvent}) => {
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -18,9 +18,9 @@ const AddMovieButtons = ({handleAddMovieManual, handleOpenDialogSearchMovie}) =>
 
   const handleClick = () => {
     if (selectedIndex == 0){
-      handleOpenDialogSearchMovie(true);
+      handleOpenDialogSearchEvent(true);
     } else if (selectedIndex == 1){
-      handleAddMovieManual();
+      handleAddEventManual();
     }
   };
 
@@ -85,4 +85,4 @@ const AddMovieButtons = ({handleAddMovieManual, handleOpenDialogSearchMovie}) =>
   );
 }
 
-export default AddMovieButtons;
+export default EventAddButtons;

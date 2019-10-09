@@ -3,17 +3,17 @@ import config from '../config';
 
 // Redux Store
 import { connect } from 'react-redux';
-import { editMovie } from '../actions/movies.js';
+import { editEvent } from '../actions/events';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
-function MovieYear(props) {
+const EventYear = (props) => {
   const [open, setOpen] = useState(false);
-  const { year, id } = props.movie;
+  const { year, id } = props.event;
   const handleYearChange = (e) => {
     const year = e.target.value;
-    props.dispatch(editMovie(id, { 'year': year }));
+    props.dispatch(editEvent(id, { 'year': year }));
   };
   const handleOpenState = (e, status) => {
     setOpen(status);
@@ -46,8 +46,8 @@ function MovieYear(props) {
 
 const mapStateToProps = (state, props) => {
   return {
-    movie: state.movies.find((movie) => movie.id === props.id)
+    event: state.events.find((event) => event.id === props.id)
   };
 }
 
-export default connect(mapStateToProps)(MovieYear);
+export default connect(mapStateToProps)(EventYear);
