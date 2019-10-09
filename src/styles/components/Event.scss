@@ -1,14 +1,14 @@
 .event-item {
   display:flex;
   width:100%;
-  margin-bottom:$size-l;
+  margin-bottom:$size-m;
   position:relative; 
   .event-item-section {
-    padding:$size-l;
+    padding:$size-m $size-l;
     flex:1 0;
   }
   .event-poster {
-    flex:0 0 120px;
+    flex:0 0 105px;
     padding:0;
     position:relative;
     .icon {
@@ -30,7 +30,7 @@
     flex:0 0 35%;
     width:35%;
     overflow:hidden;
-    padding-top:$size-s;
+    padding-top:0;
     h2 {
       font-size:$size-xxl;
       font-weight:900;
@@ -63,10 +63,11 @@
     flex-grow: 1.5;
     a {
       font-size:$size-xl;
-      font-weight:500;
+      font-weight:600;
       display:block;
       span {
         font-size:$size-l;
+        margin-bottom:$size-s;
         font-weight:300;
         display:block;
       }
@@ -76,7 +77,12 @@
     border-right:1px solid #DDD;
     font-size:$size-l;
     .icons-seats {
+      font-weight:600;
+      font-size:$size-xl;
       margin-top:$size-s;
+      > span {
+        vertical-align: text-bottom;
+      }
     }
   }
   .event-room {

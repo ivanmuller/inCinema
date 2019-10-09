@@ -21,6 +21,9 @@ a {
 
 button {
   cursor: pointer;
+  .material-icons {
+    margin-left:$size-xs;
+  }
 }
 
 button:disabled {
@@ -35,7 +38,7 @@ button:disabled {
     #advEditor {
       &-body {
         background:rgba(30,30,30,0.87) !important;
-        font-size: $size-s !important;
+        font-size: $size-m !important;
       }
     }
   }

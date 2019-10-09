@@ -14,7 +14,7 @@ const EventAddButtons = ({handleAddEventManual, handleOpenDialogSearchEvent}) =>
   const anchorRef = useRef(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const options = ['Add movie', 'Add movie Manually'];
+  const options = ['Add movie from Database', 'Add movie Manually'];
 
   const handleClick = () => {
     if (selectedIndex == 0){

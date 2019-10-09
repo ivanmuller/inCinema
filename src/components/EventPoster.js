@@ -7,6 +7,7 @@ import { editEvent } from '../actions/events';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 
+import Box from '@material-ui/core/Box';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -47,28 +48,30 @@ const EventPoster = ({ playing, dispatch, event: { id, poster}}) => {
               <img src={preview ? preview : "https://placeimg.com/640/960/nature/grayscale"} width="100%" />
             </Grid>
             <Grid item xs={8}>
-              <DialogTitle id="form-dialog-title">Change Image</DialogTitle>
-              <DialogContent dividers>
-                <DialogContentText>
-                  Please add the url of the image here
-              </DialogContentText>
-                <TextField
-                  autoFocus
-                  multiline 
-                  margin="dense"
-                  rowsMax="4"
-                  helperText="Image URL"
-                  id="name"
-                  type="text"
-                  fullWidth 
-                  onChange={handlePreviewChange}
-                  value={preview}
-                />
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={handleClose} color="secondary">Cancel</Button>
-                <Button onClick={handlePosterChange} color="primary">Modify</Button>
-              </DialogActions>
+              <Box display="flex" flexDirection="column" height="100%">
+                <DialogTitle id="form-dialog-title">Change Image</DialogTitle>
+                <DialogContent dividers>
+                  <DialogContentText>
+                    Please add the url of the image here
+                </DialogContentText>
+                  <TextField
+                    autoFocus
+                    multiline 
+                    margin="dense"
+                    rowsMax="4"
+                    helperText="Image URL"
+                    id="name"
+                    type="text"
+                    fullWidth 
+                    onChange={handlePreviewChange}
+                    value={preview}
+                  />
+                </DialogContent>
+                <DialogActions>
+                  <Button onClick={handleClose} color="secondary">Cancel</Button>
+                  <Button onClick={handlePosterChange} color="primary">Modify</Button>
+                </DialogActions>
+              </Box>
             </Grid>
           </Grid>
         </Dialog>

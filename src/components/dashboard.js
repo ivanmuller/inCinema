@@ -76,7 +76,7 @@ class Dashboard extends React.Component {
                 <h1>{config.appTitle}</h1>
                 <EventAddButtons handleAddEventManual={this.handleAddEventManual} handleOpenDialogSearchEvent={this.handleOpenDialogSearchEvent} />
                 <Button variant="contained" onClick={() => this.setState({ isPaneOpen: !this.state.isPaneOpen })}>Advanced Edition <Icon>code</Icon></Button>
-                <Button color="primary" variant="contained">Deploy <Icon>screen_share</Icon></Button>
+                <Button color="primary" variant="contained">Save & Deploy <Icon>screen_share</Icon></Button>
               </Toolbar>
             </AppBar>  
             
