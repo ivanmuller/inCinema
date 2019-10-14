@@ -28,7 +28,7 @@ const mapOptionsToValues = options => {
   }));
 };
 
-const EventAdd = ({ handleOpenDialogSearchEvent, openDialogSearchEvent, dispatch }) => {
+const EventAdd = ({ handleOpenDialogSearchEvent, isOpenDialogSearchEvent, dispatch }) => {
   const [hasError, setErrors] = useState('');
   const [eventId, setEventId] = useState();
   const [selectedEvent, setSelectedEvent] = useState('');
@@ -90,7 +90,6 @@ const EventAdd = ({ handleOpenDialogSearchEvent, openDialogSearchEvent, dispatch
   };
 
   const handleAddEvent = () => {
-    console.log(selectedDate);
     dispatch(addEvent({
       title: selectedEvent.title, 
       year: selectedEvent.release_date.split('-')[0],
@@ -104,7 +103,7 @@ const EventAdd = ({ handleOpenDialogSearchEvent, openDialogSearchEvent, dispatch
 
   return (
     <>
-      <Dialog open={openDialogSearchEvent} onClose={() => handleOpenDialogSearchEvent(false)} aria-labelledby="form-dialog-title" maxWidth="lg" className="event-add-search">
+      <Dialog open={isOpenDialogSearchEvent} onClose={() => handleOpenDialogSearchEvent(false)} aria-labelledby="form-dialog-title" maxWidth="lg" className="event-add-search">
         <DialogTitle id="form-dialog-title">Search in Movie Database</DialogTitle>
         <DialogContent dividers>
           <DialogContentText>

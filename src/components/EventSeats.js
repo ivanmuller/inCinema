@@ -27,14 +27,14 @@ const EventsSeats = (props) => {
     let renderedIcons = [];
     if (seats <= 10) {
       for (let i = 0; i < seats; i++) {
-        renderedIcons.push(<Icon key={i} color="error" fontSize="large">event_seat</Icon>);
+        renderedIcons.push(<Icon key={i} color="error">event_seat</Icon>);
       }
       return (
         <div className="icons-seats blink-1">{renderedIcons}</div>
       )
     }else{
       return (
-        <div className="icons-seats"><Icon fontSize="large">event_seat</Icon> {seats}+</div>
+        <div className="icons-seats"><Icon>event_seat</Icon> {seats}+</div>
       )
     }
     

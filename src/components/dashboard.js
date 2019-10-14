@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import config from '../config';
 
@@ -27,65 +27,61 @@ import Icon from '@material-ui/core/Icon';
 import EventAdd from './EventAdd';
 import EventAddButtons from './EventAddButtons';
 
-class Dashboard extends React.Component {
-  state = {
-    isPaneOpen: false,
-    openDialogSearchEvent: false
-  };
-  componentDidMount() {
+const Dashboard = (props) => {
+  const [isPaneOpen, setPaneOpened] = useState(false);
+  const [isOpenDialogSearchEvent, setOpenDialogSearch] = useState(false);
+  useEffect(() => {
     Modal.setAppElement('#main');
-  };
-  onEditHandle = (r) => {
+  }, []);
+  const onEditHandle = (r) => {
     if (!r.error) {
-      this.props.dispatch(editAllEvents(r.jsObject));
+      props.dispatch(editAllEvents(r.jsObject));
     }
   };
-  handleOpenDialogSearchEvent = (status) => {
-    this.setState({ openDialogSearchEvent: status });
+  const handleOpenDialogSearchEvent = (status) => {
+    setOpenDialogSearch(status);
   };
-  handleAddEventManual = () => {
-    this.props.dispatch(addEvent());
+  const handleAddEventManual = () => {
+    props.dispatch(addEvent());
   };
-  render() {
-    return (
-      <div id="main">
-        <MuiThemeProvider theme={theme}>
-            <SlidingPane
-              className="custom-sliding-pane"
-              isOpen={this.state.isPaneOpen}
-              title="Edit in Advanced Mode"
-              onRequestClose={() => {
-                this.setState({ isPaneOpen: false });
-              }}>
-              <JSONInput
-                id="advEditor"
-                placeholder={this.props.events}
-                locale={locale}
-                onChange={this.onEditHandle}
-                width="100%"
-                height="100%"
-              />
-            </SlidingPane>
+  return (
+    <div id="main">
+      <MuiThemeProvider theme={theme}>
+          <SlidingPane
+            className="custom-sliding-pane"
+            isOpen={isPaneOpen}
+            title="Edit in Advanced Mode"
+            onRequestClose={() => {
+              setPaneOpened(false)
+            }}>
+            <JSONInput
+              id="advEditor"
+              placeholder={props.events}
+              locale={locale}
+              onChange={onEditHandle}
+              width="100%"
+              height="100%"
+            />
+          </SlidingPane>
 
-            <div className="events-list">
-                {this.props.events.map((event, index) => <Event key={index} {...event} index={index} />)}
-            </div>
+          <div className="events-list">
+              {props.events.map((event, index) => <Event key={index} {...event} index={index} />)}
+          </div>
 
-            <AppBar className="app-bar" position="fixed" color="default">
-            <Toolbar disableGutters={true} className="tool-bar">
-                <h1>{config.appTitle}</h1>
-                <EventAddButtons handleAddEventManual={this.handleAddEventManual} handleOpenDialogSearchEvent={this.handleOpenDialogSearchEvent} />
-                <Button variant="contained" onClick={() => this.setState({ isPaneOpen: !this.state.isPaneOpen })}>Advanced Edition <Icon>code</Icon></Button>
-                <Button color="primary" variant="contained">Save & Deploy <Icon>screen_share</Icon></Button>
-              </Toolbar>
-            </AppBar>  
-            
-          <EventAdd handleOpenDialogSearchEvent={this.handleOpenDialogSearchEvent} openDialogSearchEvent={this.state.openDialogSearchEvent} />
+          <AppBar className="app-bar" position="fixed" color="default">
+          <Toolbar disableGutters={true} className="tool-bar">
+              <h1>{config.appTitle}</h1>
+              <EventAddButtons handleAddEventManual={handleAddEventManual} handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} />
+              <Button variant="contained" onClick={() => setPaneOpened(true)}>Advanced Edition <Icon>code</Icon></Button>
+              <Button color="primary" variant="contained">Save & Deploy <Icon>screen_share</Icon></Button>
+            </Toolbar>
+          </AppBar>  
+          
+        <EventAdd handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} isOpenDialogSearchEvent={isOpenDialogSearchEvent} />
 
-        </MuiThemeProvider>
-      </div>
-    )
-  }
+      </MuiThemeProvider>
+    </div>
+  )
 };
 
 const orderedEvents = (events) => {

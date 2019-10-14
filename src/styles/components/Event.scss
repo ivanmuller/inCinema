@@ -1,5 +1,6 @@
 .event-item {
   display:flex;
+  flex-wrap:wrap;
   width:100%;
   margin-bottom:$size-m;
   position:relative; 
@@ -8,7 +9,7 @@
     flex:1 0;
   }
   .event-poster {
-    flex:0 0 105px;
+    flex:0 0 $poster-width-desktop;
     padding:0;
     position:relative;
     .icon {
@@ -78,9 +79,9 @@
     font-size:$size-l;
     .icons-seats {
       font-weight:600;
-      font-size:$size-xl;
       margin-top:$size-s;
       > span {
+        font-size:$size-xl;
         vertical-align: text-bottom;
       }
     }
@@ -113,6 +114,46 @@
   } 
   &:hover {
     .event-actions {
+      opacity:1;
+    }
+  }
+ 
+  @media (max-width: $mobile-breakpoint) {
+    &::after {
+      content: '';
+      width: 100%;
+      order: 1;
+      border-top:1px solid #DDD;
+    }
+    .event-item-section {
+      padding:$size-s;
+    }
+    .event-poster {
+      padding:0;
+      flex-basis: $poster-width-mobile;
+    }
+    .event-title {
+      flex:0 0 calc(100% - #{$poster-width-mobile});
+      width:calc(100% - #{$poster-width-mobile});
+    }
+    .event-time {
+      order:2;
+      flex-grow:3;
+      padding-bottom:0;
+      a span {
+        margin-bottom:$size-xs;
+      }
+    }
+    .event-tickets {
+      order:3;
+      flex-grow:2;
+    }
+    .event-room {
+      order:4;
+    }
+    .event-actions {
+      bottom:auto;
+      top:15px;
       opacity:1;
     }
   }

@@ -2,6 +2,10 @@ html {
   font-size: 62.5%;
 }
 
+* {
+  box-sizing:border-box;
+}
+
 body {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 1rem;
@@ -49,5 +53,11 @@ button:disabled {
   height:0;
   &::before {
     height:0;
+  }
+}
+
+@media (max-width: $mobile-breakpoint) {
+  html {
+    font-size: 55%;
   }
 }
