@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import config from './config';
+import fakeData from './data/data';
+
 // Store
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
@@ -35,16 +38,21 @@ const error = (
 ReactDOM.render(loading, document.getElementById('app'));
 
 // fetching data from databse
-database.ref('events').on('value', (snapshot) => {
-  const events = [];
-  snapshot.forEach((childSnapshot) => {
-    events.push({
-      id: childSnapshot.key,
-      ...childSnapshot.val()
+if (config.enableFirebase) {
+  database.ref('events').on('value', (snapshot) => {
+    const events = [];
+    snapshot.forEach((childSnapshot) => {
+      events.push({
+        id: childSnapshot.key,
+        ...childSnapshot.val()
+      });
+      store.dispatch(fetchAllEvents(events));
+      ReactDOM.render(app, document.getElementById('app'));
     });
-    store.dispatch(fetchAllEvents(events));
-    ReactDOM.render(app, document.getElementById('app')); 
-  });
-}, (e) => {
+  }, (e) => {
     ReactDOM.render(loading, document.getElementById('app'));
-});
+  });
+} else {//load fake data
+  store.dispatch(fetchAllEvents(fakeData));
+  ReactDOM.render(app, document.getElementById('app'));
+}
