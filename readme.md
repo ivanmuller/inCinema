@@ -3,5 +3,6 @@
 - Crear Utils
 - Aviso de borrar
 - App Mobile simple donde ver los cambios
+- Posibilidad de ocultar
 - Scroll Automático
 - Suscribirse
