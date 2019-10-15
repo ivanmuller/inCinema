@@ -29,6 +29,7 @@ class Event extends React.Component {
   };
   handleRemoveEvent = (e) => {
     this.props.dispatch(removeEvent({id: this.props.id}));
+    this.props.handleQueueToDelete(this.props.id);
     e.preventDefault();
   };
   setDatePickerOpen = (e, status) => {
@@ -78,7 +79,7 @@ class Event extends React.Component {
     }
   };  
   render() {
-    const { id, datetime} = this.props;
+    const {id,datetime} = this.props;
     return (
       <Card className={['event-item', this.state.finished && 'finished', this.state.playing && 'playing'].join(" ")}>
 

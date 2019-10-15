@@ -1,11 +1,12 @@
-// Movies Reducer
-import eventsReducerDefaultState from '../data/events';
+// Events Reducer
 
-const eventsReducer = (state = eventsReducerDefaultState, action) => {
+const eventsReducer = (state = [], action) => {
   switch (action.type) {
     case 'ADD_EVENT':
       return [...state,action.event];
     case 'EDIT_ALL':
+      return [...action.events];
+    case 'FETCH_ALL':
       return [...action.events];
     case 'REMOVE_EVENT':
       return state.filter(({ id }) => id !== action.id)

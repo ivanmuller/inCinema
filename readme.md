@@ -1,0 +1,7 @@
+- Animación loading Deploy
+- Variabilizar todo en config.js
+- Crear Utils
+- Aviso de borrar
+- App Mobile simple donde ver los cambios
+- Scroll Automático
+- Suscribirse

@@ -27,6 +27,7 @@
     "babel-jest": "^23.4.2",
     "babel-loader": "^8.0.0",
     "css-loader": "^2.1.1",
+    "firebase": "^7.2.0",
     "live-server": "^1.2.1",
     "lodash": "^4.17.15",
     "mini-css-extract-plugin": "^0.8.0",

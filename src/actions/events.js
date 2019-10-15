@@ -49,3 +49,11 @@ export const editAllEvents = (events) => {
     events
   })
 };
+
+// FETCH_ALL
+export const fetchAllEvents = (events) => {
+  return ({
+    type: 'FETCH_ALL',
+    events
+  })
+};

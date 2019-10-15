@@ -25,7 +25,7 @@ a {
 
 button {
   cursor: pointer;
-  .material-icons {
+  .material-icons, .progress {
     margin-left:$size-xs;
   }
 }
@@ -58,6 +58,19 @@ button:disabled {
 
 @media (max-width: $mobile-breakpoint) {
   html {
-    font-size: 55%;
+    font-size: 45%;
   }
 }
+
+.spinner-wrap {
+  height: 100vh;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.spinner-loader {
+  width: 6rem;
+  height: 6rem;
+}
+
