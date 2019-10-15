@@ -28,7 +28,7 @@ const mapOptionsToValues = options => {
   }));
 };
 
-const EventAdd = ({ handleOpenDialogSearchEvent, isOpenDialogSearchEvent, dispatch }) => {
+const EventAdd = ({ handleOpenDialogSearchEvent, isOpenDialogSearchEvent, reorderAnimation, dispatch }) => {
   const [hasError, setErrors] = useState('');
   const [eventId, setEventId] = useState();
   const [selectedEvent, setSelectedEvent] = useState('');
@@ -99,6 +99,7 @@ const EventAdd = ({ handleOpenDialogSearchEvent, isOpenDialogSearchEvent, dispat
     })
     );
     setOpenPreviewModal(false);
+    reorderAnimation();
   };
 
   return (

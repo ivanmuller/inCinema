@@ -30,6 +30,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Icon from '@material-ui/core/Icon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import { Flipper, Flipped } from 'react-flip-toolkit';
+import { map } from 'lodash';
+
 const prepareDataToSave = (mapper,itemsToRemove) => {
   let dataToSave = {};
   mapper.forEach(({id,...event}) => {
@@ -41,7 +44,7 @@ const prepareDataToSave = (mapper,itemsToRemove) => {
   return dataToSave;
 }
 
-const oderEvents = (events) => {
+const orderEvents = (events) => {
   return events.sort((a, b) => {
     return a.datetime < b.datetime ? -1 : 1;
   });
@@ -52,6 +55,14 @@ const Dashboard = (props) => {
   const [isOpenDialogSearchEvent, setOpenDialogSearch] = useState(false);
   const [queueToDelete,setQueueToDelete] = useState([]);
   const [deployingStatus,setDeployingStatus] = useState(0);//0:idle 1:deploying 2:done
+
+  const [data, setData] = useState(props.events);
+
+  const reorderAnimation = () => {
+    setTimeout(() => {
+      setData(orderEvents(props.events));
+    }, 150);    
+  }
 
   useEffect(() => {
     Modal.setAppElement('#main');
@@ -69,6 +80,7 @@ const Dashboard = (props) => {
   
   const handleAddEventManual = () => {
     props.dispatch(addEvent());
+    reorderAnimation();
   };
 
   const handleQueueToDelete = (id) => {
@@ -84,7 +96,7 @@ const Dashboard = (props) => {
         setTimeout(() => setDeployingStatus(0), 3000);
       }
     ).catch(()=> {
-      console.log('Error Updating Items')
+      console.log('Error Updating Items');
     });
   };
 
@@ -109,13 +121,19 @@ const Dashboard = (props) => {
           </SlidingPane>
 
           <div className="events-list">
-              {props.events.map((event, index) => <Event key={index} {...event} index={index} handleQueueToDelete={handleQueueToDelete}/>)}
+            <Flipper flipKey={() => _.map(data, 'datetime')}>       
+              {data.map((event,index) => (
+                <Flipped key={event.id} flipId={event.id}>
+                  <div><Event key={index} {...event} index={index} handleQueueToDelete={handleQueueToDelete} reorderAnimation={reorderAnimation}/></div>
+                </Flipped>
+              ))}
+            </Flipper> 
           </div>
 
           <AppBar className="app-bar" position="fixed" color="default">
-          <Toolbar disableGutters={true} className="tool-bar">
+            <Toolbar disableGutters={true} className="tool-bar">
               <h1>{config.appTitle}</h1>
-              <EventAddButtons handleAddEventManual={handleAddEventManual} handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} />
+              <EventAddButtons handleAddEventManual={handleAddEventManual} handleOpenDialogSearchEvent={handleOpenDialogSearchEvent}/>
               <Button variant="contained" onClick={() => setPaneOpened(!isPaneOpen)}>Advanced Edition <Icon>code</Icon></Button>
               <Button disabled={deployingStatus != 0} color="primary" variant="contained" onClick={handleDeploy}>
                 Save & Deploy 
@@ -126,7 +144,7 @@ const Dashboard = (props) => {
             </Toolbar>
           </AppBar>  
           
-        <EventAdd handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} isOpenDialogSearchEvent={isOpenDialogSearchEvent} />
+          <EventAdd handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} isOpenDialogSearchEvent={isOpenDialogSearchEvent} reorderAnimation={reorderAnimation} />
 
       </MuiThemeProvider>
     </div>
@@ -135,7 +153,7 @@ const Dashboard = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    events: oderEvents(state.events)
+    events: orderEvents(state.events)
   }
 }
 

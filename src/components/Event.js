@@ -34,6 +34,9 @@ class Event extends React.Component {
   };
   setDatePickerOpen = (e, status) => {
     this.setState({ pickerIsOpen: status });
+    if(status == false){
+      this.props.reorderAnimation();
+    }
     if(e){e.preventDefault()}
   };
   handleDate = () => {

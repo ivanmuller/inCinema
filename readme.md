@@ -1,4 +1,4 @@
-- Animación loading Deploy
+- Animar reordering
 - Variabilizar todo en config.js
 - Crear Utils
 - Aviso de borrar
@@ -6,3 +6,4 @@
 - Posibilidad de ocultar
 - Scroll Automático
 - Suscribirse
+- Modo Compacto (admin)
