@@ -51,7 +51,9 @@ const EventsSeats = (props) => {
 
 const mapStateToProps = (state, props) => {
   return {
-    event: state.events.find((event) => event.id === props.id)
+    event: state.events.find((event) => {
+      return event.id === props.id
+    })
   };
 }
 

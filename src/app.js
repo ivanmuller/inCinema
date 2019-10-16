@@ -21,6 +21,10 @@ import './styles/styles.scss';
 
 const store = configureStore();
 
+/* const unsuscribe = store.subscribe(() => {
+  console.log(store.getState());
+}); */
+
 const app = (
   <Provider store={store}>
     <Dashboard />

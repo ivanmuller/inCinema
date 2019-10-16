@@ -1,7 +1,9 @@
-- Animación loading Deploy
+- Copy
+- Actions botones redondos
 - Variabilizar todo en config.js
 - Crear Utils
 - Aviso de borrar
+- Aviso de guardar (en el mismo botón: sure? yes/no)
 - App Mobile simple donde ver los cambios
 - Posibilidad de ocultar
 - Scroll Automático

@@ -20,6 +20,7 @@ import locale from 'react-json-editor-ajrm/locale/en';
 import Modal from 'react-modal';
 import SlidingPane from 'react-sliding-pane';
 import 'react-sliding-pane/dist/react-sliding-pane.css';
+import FlipMove from 'react-flip-move';
 
 // Third party styles
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -90,6 +91,7 @@ const Dashboard = (props) => {
 
   return (
     <div id="main">
+    
       <MuiThemeProvider theme={theme}>
           <SlidingPane
             className="custom-sliding-pane"
@@ -109,7 +111,11 @@ const Dashboard = (props) => {
           </SlidingPane>
 
           <div className="events-list">
-              {props.events.map((event, index) => <Event key={index} {...event} index={index} handleQueueToDelete={handleQueueToDelete}/>)}
+          <FlipMove leaveAnimation="none">
+                {props.events.map((event, index) => (
+                  <div key={event.id}><Event key={index} {...event} index={index} handleQueueToDelete={handleQueueToDelete}/></div>
+                ))}
+              </FlipMove>
           </div>
 
           <AppBar className="app-bar" position="fixed" color="default">

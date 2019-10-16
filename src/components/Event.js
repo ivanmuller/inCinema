@@ -22,18 +22,23 @@ class Event extends React.Component {
     timeDifference: "",
     playing: false,
     finished: false,
-    pickerIsOpen: false
+    pickerIsOpen: false,
+    tempDateTimeSelected: this.props.dateTime
   };
   handleDateChange = (date) => {
-    this.props.dispatch(editEvent(this.props.id,{'datetime': date.format('YYYY-MM-DD HH:mm:ss')}));
+    this.setState({ tempDateTimeSelected: date.format('YYYY-MM-DD HH:mm:ss') });
   };
   handleRemoveEvent = (e) => {
-    this.props.dispatch(removeEvent({id: this.props.id}));
-    this.props.handleQueueToDelete(this.props.id);
+    let thisId = this.props.id;
+    this.props.handleQueueToDelete(thisId);
+    this.props.dispatch(removeEvent({ id: thisId }));
     e.preventDefault();
   };
   setDatePickerOpen = (e, status) => {
     this.setState({ pickerIsOpen: status });
+    if(status == false){
+      this.props.dispatch(editEvent(this.props.id, { 'datetime': this.state.tempDateTimeSelected }));
+    }
     if(e){e.preventDefault()}
   };
   handleDate = () => {
@@ -104,7 +109,7 @@ class Event extends React.Component {
         <EventSeats id={id} processed={{ ...this.state }} />
         <EventRoom id={id} />
         <div className="event-actions">
-          <a href="/#" onClick={this.handleRemoveEvent}><Icon>cancel_presentation</Icon></a>
+          <a href="/#" onClick={(e) => this.handleRemoveEvent(e)}><Icon>delete</Icon></a>
         </div>
       </Card>
     )
