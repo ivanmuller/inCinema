@@ -1,5 +1,4 @@
 - Copy
-- Actions botones redondos
 - Variabilizar todo en config.js
 - Crear Utils
 - Aviso de borrar

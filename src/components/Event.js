@@ -1,6 +1,8 @@
 import React from 'react';
 import config from '../config';
 
+import { isAdmin } from '../utils/utils';
+
 // Redux Store
 import { connect } from 'react-redux';
 import { editEvent, removeEvent } from '../actions/events';
@@ -108,9 +110,13 @@ class Event extends React.Component {
 
         <EventSeats id={id} processed={{ ...this.state }} />
         <EventRoom id={id} />
-        <div className="event-actions">
-          <a href="/#" onClick={(e) => this.handleRemoveEvent(e)}><Icon>delete</Icon></a>
-        </div>
+        {isAdmin() && 
+          <div className="event-actions">
+            <a href="/#"><Icon>visibility</Icon></a>
+            <a href="/#"><Icon>file_copy</Icon></a>
+            <a href="/#" className="delete" onClick={(e) => this.handleRemoveEvent(e)}><Icon>delete</Icon></a>
+          </div>
+        }
       </Card>
     )
   }

@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import config from './config';
+import { isAdmin } from './utils/utils';
+import AppRouter from './routers/AppRouter';
 import fakeData from './data/data';
 
 // Store
@@ -9,11 +11,10 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import { fetchAllEvents } from './actions/events';
 
+import cogoToast from 'cogo-toast';
+
 // Firebase
 import database from './firebase/firebase';
-
-// My components
-import Dashboard from './components/Dashboard';
 
 // My Styles
 import 'normalize.css/normalize.css';
@@ -27,7 +28,7 @@ const store = configureStore();
 
 const app = (
   <Provider store={store}>
-    <Dashboard />
+    <AppRouter />
   </Provider>
 );
 const loading = (
@@ -42,6 +43,7 @@ const error = (
 ReactDOM.render(loading, document.getElementById('app'));
 
 // fetching data from databse
+let firstLoad = true;
 if (config.enableFirebase) {
   database.ref('events').on('value', (snapshot) => {
     const events = [];
@@ -50,9 +52,17 @@ if (config.enableFirebase) {
         id: childSnapshot.key,
         ...childSnapshot.val()
       });
-      store.dispatch(fetchAllEvents(events));
-      ReactDOM.render(app, document.getElementById('app'));
     });
+    if (!isAdmin() && !firstLoad){
+      cogoToast.loading('Fetching new data...').then(() => {
+        store.dispatch(fetchAllEvents(events));
+        firstLoad = false;
+      });
+    }else{ 
+      store.dispatch(fetchAllEvents(events));
+      firstLoad = false;
+    }    
+    ReactDOM.render(app, document.getElementById('app'));
   }, (e) => {
     ReactDOM.render(loading, document.getElementById('app'));
   });

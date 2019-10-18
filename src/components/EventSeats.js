@@ -41,7 +41,7 @@ const EventsSeats = (props) => {
   };
   return (
     <div className="event-item-section event-tickets">
-      {handleSeats()} <br />
+      <span>{handleSeats()}</span>
       {(seats > 0 && !finished) && 
         handleSeatsIcons()
       }
