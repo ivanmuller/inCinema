@@ -112,7 +112,7 @@ class Event extends React.Component {
         <EventRoom id={id} />
         {isAdmin() && 
           <div className="event-actions">
-            <a href="/#"><Icon>visibility</Icon></a>
+            <a href="/#"><Icon>visibility_off</Icon></a>
             <a href="/#"><Icon>file_copy</Icon></a>
             <a href="/#" className="delete" onClick={(e) => this.handleRemoveEvent(e)}><Icon>delete</Icon></a>
           </div>

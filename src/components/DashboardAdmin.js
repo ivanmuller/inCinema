@@ -92,7 +92,7 @@ const DashboardAdmin = (props) => {
   };
 
   return (
-    <div id="main">
+    <div id="main" class="admin">
     
       <MuiThemeProvider theme={theme}>
           <SlidingPane

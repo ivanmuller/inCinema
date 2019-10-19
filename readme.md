@@ -7,3 +7,4 @@
 - Posibilidad de ocultar
 - Scroll Automático
 - Suscribirse
+- Historial/undo
