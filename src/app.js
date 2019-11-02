@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 
 import config from './config';
 import { isAdmin } from './utils/utils';
-import AppRouter from './routers/AppRouter';
+import AppRouter, {history} from './routers/AppRouter';
 import fakeData from './data/data';
+import { login, logout } from './actions/auth';
 
 // Store
 import { Provider } from 'react-redux';
@@ -14,7 +15,7 @@ import { fetchAllEvents } from './actions/events';
 import cogoToast from 'cogo-toast';
 
 // Firebase
-import database from './firebase/firebase';
+import database, {firebase} from './firebase/firebase';
 
 // My Styles
 import 'normalize.css/normalize.css';
@@ -45,6 +46,7 @@ ReactDOM.render(loading, document.getElementById('app'));
 // fetching data from databse
 let firstLoad = true;
 if (config.enableFirebase) {
+
   database.ref('events').on('value', (snapshot) => {
     const events = [];
     snapshot.forEach((childSnapshot) => {
@@ -66,7 +68,16 @@ if (config.enableFirebase) {
   }, (e) => {
     ReactDOM.render(loading, document.getElementById('app'));
   });
+
 } else {//load fake data
   store.dispatch(fetchAllEvents(fakeData));
   ReactDOM.render(app, document.getElementById('app'));
 }
+
+firebase.auth().onAuthStateChanged((user) => {
+  if (user) {
+    store.dispatch(login(user.uid));
+  } else {
+    store.dispatch(logout());
+  }
+});

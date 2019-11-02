@@ -5,6 +5,7 @@ import config from '../config';
 // Redux Store
 import { connect } from 'react-redux';
 import { addEvent, editAllEvents } from '../actions/events';
+import { startLogout } from '../actions/auth';
 
 // Firebase
 import database from '../firebase/firebase';
@@ -92,7 +93,7 @@ const DashboardAdmin = (props) => {
   };
 
   return (
-    <div id="main" class="admin">
+    <div id="main" className="admin">
     
       <MuiThemeProvider theme={theme}>
           <SlidingPane
@@ -123,6 +124,7 @@ const DashboardAdmin = (props) => {
           <AppBar className="app-bar" position="fixed" color="default">
           <Toolbar disableGutters={true} className="tool-bar">
               <h1>{config.appTitle}</h1>
+              <button onClick={() => props.dispatch(startLogout())}>Log Out</button>
               <EventAddButtons handleAddEventManual={handleAddEventManual} handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} />
               <Button variant="contained" onClick={() => setPaneOpened(!isPaneOpen)}>Advanced Edition <Icon>code</Icon></Button>
               <Button disabled={deployingStatus != 0} color="primary" variant="contained" onClick={handleDeploy}>
