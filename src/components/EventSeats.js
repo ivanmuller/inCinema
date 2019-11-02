@@ -4,9 +4,7 @@ import Icon from '@material-ui/core/Icon';
 // Redux Store
 import { connect } from 'react-redux';
 
-const EventsSeats = (props) => {
-  const { finished } = props.processed;
-  const { seats } = props.event;
+const EventsSeats = ({ finished, event: { seats }}) => {
   const handleSeats = () => {
     switch (true) {
       case (seats === 0 || finished):
