@@ -1,4 +1,7 @@
+- LoginPage Estilos
+- Limitar inputs al público.
 - Copy
+- Load / Save
 - Variabilizar todo en config.js
 - Crear Utils
 - Aviso de borrar
