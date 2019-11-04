@@ -1,7 +1,6 @@
 - LoginPage Estilos
 - Copy
 - Variabilizar todo en config.js
-- Candado en deploy
 - Crear Utils
 - Rearmar menú
 ---- MVP
