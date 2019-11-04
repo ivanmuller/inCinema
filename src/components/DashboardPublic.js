@@ -20,7 +20,7 @@ const oderEvents = (events) => {
 const DashboardPublic = (props) => {
 
   return (
-    <div id="main">
+    <div id="main" className="public">
       <MuiThemeProvider theme={theme}>
         <div className="events-list">
           <FlipMove leaveAnimation="none">

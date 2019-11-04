@@ -1,53 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import config from '../config';
 
-import { isAdmin } from '../utils/utils';
-
 // Redux Store
 import { connect } from 'react-redux';
-import { editEvent, removeEvent } from '../actions/events';
 
-import Icon from '@material-ui/core/Icon';
 import Card from '@material-ui/core/Card';
 
 import useInterval from '../hooks/useInterval';
-import EventPoster from './EventPoster';
-import EventTitle from './EventTitle';
+import { EventPosterAdminConn as EventPosterAdmin, EventPosterPublicConn as EventPosterPublic } from './EventPoster';
+import { EventTitleAdminConn as EventTitleAdmin, EventTitlePublicConn as EventTitlePublic } from './EventTitle';
+import { EventTimeAdminConn as EventTimeAdmin, EventTimePublicConn as EventTimePublic } from './EventTime';
 import EventSeats from './EventSeats';
-import EventRoom from './EventRoom';
+import { EventRoomAdminConn as EventRoomAdmin, EventRoomPublicConn as EventRoomPublic } from './EventRoom';
+import EventActions from "./EventActions";
 
 import moment from 'moment';
-import {DateTimePicker,  MuiPickersUtilsProvider} from "@material-ui/pickers";
-import MomentUtils from '@date-io/moment';
 
 const Event = (props) => {
   const [timeDifference, setTimeDifference] = useState('first');
   const [playing, setPlaying] = useState(false);
   const [finished, setFinished] = useState(false);
-  const [pickerIsOpen, setPickerIsOpen] = useState(false);
-  const [tempDateTimeSelected, setTempDateTimeSelected] = useState(props.dateTime);
 
-  const handleDateChange = (date) => {
-    setTempDateTimeSelected(date.format('YYYY-MM-DD HH:mm:ss'));
-  };
-
-  const handleRemoveEvent = (e) => {
-    let thisId = props.id;
-    props.handleQueueToDelete(thisId);
-    props.dispatch(removeEvent({ id: thisId }));
-    e.preventDefault();
-  };
-
-  const setDatePickerOpen = (e, status) => {
-    setPickerIsOpen(status);
-    if(status == false){
-      props.dispatch(editEvent(props.id, { 'datetime': tempDateTimeSelected }));
-      console.log('dispatch!');
-    }
-    if(e){e.preventDefault()}
-  };
-
-  const handleDate = () => {
+  const calculateDate = () => {
     const now = moment();
     const eventTime = moment(props.datetime);
     const humanDiff = moment(eventTime).fromNow(true);
@@ -69,52 +43,41 @@ const Event = (props) => {
   };
 
   useInterval(() => {
-    handleDate();
+    calculateDate();
   }, config.dateIntervalrefresh);
 
   useEffect(() => {
-    handleDate();
+    calculateDate();
   }, []);
-
-  useEffect(() => {
-    handleDate();
-  }, [pickerIsOpen])
   
   return (
     <Card className={['event-item', finished && 'finished', playing && 'playing'].join(" ")}>
-
-      <EventPoster id={props.id} playing={playing} />
-      <EventTitle id={props.id} />
-
-      <div className="event-item-section event-time">
-        <a href="#" onClick={(e) => setDatePickerOpen(e, true)} dangerouslySetInnerHTML={{ __html: timeDifference }}></a><br />
-        <MuiPickersUtilsProvider utils={MomentUtils}>
-          <DateTimePicker
-            className="hide"
-            variant="inline"
-            ampm={true}
-            open={pickerIsOpen}
-            onOpen={(e) => setDatePickerOpen(e, true)}
-            onClose={(e) => setDatePickerOpen(e, false)}
-            value={props.datetime}
-            onChange={handleDateChange} />
-        </MuiPickersUtilsProvider>
-      </div>
-
-      <EventSeats id={props.id} finished={finished} />
-      <EventRoom id={props.id} />
-      <div className="event-actions">
-        <a href="/#"><Icon>visibility_off</Icon></a>
-        <a href="/#"><Icon>file_copy</Icon></a>
-        <a href="/#" className="delete" onClick={(e) => handleRemoveEvent(e)}><Icon>delete</Icon></a>
-      </div>
+      {props.auth.uid ? (
+          <>
+            <EventPosterAdmin id={props.id} playing={playing} />
+            <EventTitleAdmin id={props.id} />
+            <EventTimeAdmin id={props.id} timeDifference={timeDifference} calculateDate={calculateDate} />
+            <EventSeats id={props.id} finished={finished} />
+            <EventRoomAdmin id={props.id} />
+            <EventActions id={props.id} handleQueueToDelete={props.handleQueueToDelete} />
+          </>
+        ) : (
+          <>
+            <EventPosterPublic id={props.id} playing={playing} />
+            <EventTitlePublic id={props.id} />
+            <EventTimePublic id={props.id} timeDifference={timeDifference} calculateDate={calculateDate} />
+            <EventSeats id={props.id} finished={finished} />
+            <EventRoomPublic id={props.id} />
+          </>
+      )}
     </Card>
   )
 }
 
 const mapStateToProps = (state, props) => {
   return {
-    events: state.events.find((event) => event.id === props.id)
+    events: state.events.find((event) => event.id === props.id),
+    auth: state.auth
   };
 }
 

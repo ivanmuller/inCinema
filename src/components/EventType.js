@@ -8,12 +8,11 @@ import { editEvent } from '../actions/events';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
-function EventType(props) {
-  const { type, id } = props.event;
+const EventTypeAdmin = ({ dispatch, event: { type, id }}) => {
   const [open, setOpen] = useState(false);
   const handleChange = (e) => {
     const type = e.target.value;
-    props.dispatch(editEvent(id, { type }));
+    dispatch(editEvent(id, { type }));
   };  
   const handleSetOpen = (e, status) => {
     setOpen(status);
@@ -40,10 +39,17 @@ function EventType(props) {
   )
 }
 
+const EventTypePublic = ({ event: { type } }) => (
+    <div className="event-type">
+      <span>{type}</span>
+    </div>
+  )
+
 const mapStateToProps = (state, props) => {
   return {
     event: state.events.find((event) => event.id === props.id)
   };
 }
 
-export default connect(mapStateToProps)(EventType);
+export const EventTypeAdminConn = connect(mapStateToProps)(EventTypeAdmin);
+export const EventTypePublicConn = connect(mapStateToProps)(EventTypePublic);

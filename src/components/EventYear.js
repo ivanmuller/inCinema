@@ -8,7 +8,7 @@ import { editEvent } from '../actions/events';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
-const EventYear = (props) => {
+const EventYearAdmin = (props) => {
   const [open, setOpen] = useState(false);
   const { year, id } = props.event;
   const handleYearChange = (e) => {
@@ -44,10 +44,17 @@ const EventYear = (props) => {
   )
 }
 
+const EventYearPublic = ({ event: { year } }) => (
+    <div className="event-year">
+      <span>{year}</span>
+    </div>
+  )
+
 const mapStateToProps = (state, props) => {
   return {
     event: state.events.find((event) => event.id === props.id)
   };
 }
 
-export default connect(mapStateToProps)(EventYear);
+export const EventYearAdminConn = connect(mapStateToProps)(EventYearAdmin);
+export const EventYearPublicConn = connect(mapStateToProps)(EventYearPublic);

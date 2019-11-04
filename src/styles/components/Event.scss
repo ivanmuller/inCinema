@@ -32,7 +32,6 @@
     flex:0 0 35%;
     width:35%;
     overflow:hidden;
-    padding-top:0;
     h2 {
       font-size:$size-xxl;
       font-weight:900;
@@ -141,7 +140,7 @@
       opacity:1;
     }
   }
- 
+
   @media (max-width: $mobile-breakpoint) {
     &::after {
       content: '';
@@ -183,3 +182,13 @@
     }
   }
 }
+
+#main {
+  &.admin .event-item .event-title {
+    padding-top:0
+  }
+  &.public .event-item .event-title {
+    @include ellipsis;
+  }
+}
+

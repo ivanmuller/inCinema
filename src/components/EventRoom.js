@@ -8,8 +8,7 @@ import { editEvent } from '../actions/events';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
-function EventRoom({dispatch,event}) {
-  const {room,id} = event;
+const EventRoomAdmin = ({ dispatch, event: { room, id }}) => {
   const [open, setOpen] = useState(false);
   const handleRoomChange = (e) => {
     const room = e.target.value;
@@ -40,10 +39,19 @@ function EventRoom({dispatch,event}) {
   )
 }
 
+const EventRoomPublic = ({ event: {room} }) => {
+  return (
+    <div className="event-item-section event-room">
+      <a><span>Room</span> {room}</a>
+    </div>
+  )
+}
+
 const mapStateToProps = (state, props) => {
   return {
     event: state.events.find((event) => event.id === props.id)
   };
 }
 
-export default connect(mapStateToProps)(EventRoom);
+export const EventRoomAdminConn = connect(mapStateToProps)(EventRoomAdmin);
+export const EventRoomPublicConn = connect(mapStateToProps)(EventRoomPublic);

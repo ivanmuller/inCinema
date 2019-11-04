@@ -16,7 +16,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 
-const EventPoster = ({ playing, dispatch, event: { id, poster}}) => {
+const EventPosterAdmin = ({ playing, dispatch, event: { id, poster}}) => {
     const [open, setOpen] = useState(false);
     const [preview = poster, setPreview] = useState(preview);
 
@@ -79,10 +79,18 @@ const EventPoster = ({ playing, dispatch, event: { id, poster}}) => {
     )
 }
 
+const EventPosterPublic = ({ playing, event: { poster } }) => (
+  <div className="event-item-section event-poster">
+    {playing && <Icon className="icon blink-1">play_arrow</Icon>}
+    <img src={poster ? poster : "https://placeimg.com/640/960/nature/grayscale"} width="100%" />
+  </div>
+)
+
 const mapStateToProps = (state, props) => {
   return {
     event: state.events.find((event) => event.id === props.id)
   };
 }
 
-export default connect(mapStateToProps)(EventPoster);
+export const EventPosterAdminConn = connect(mapStateToProps)(EventPosterAdmin);
+export const EventPosterPublicConn = connect(mapStateToProps)(EventPosterPublic);

@@ -27,6 +27,7 @@ import FlipMove from 'react-flip-move';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
 import Button from '@material-ui/core/Button';
+import ButtonGroup from '@material-ui/core/ButtonGroup';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Icon from '@material-ui/core/Icon';
@@ -53,6 +54,7 @@ const DashboardAdmin = (props) => {
   const [isPaneOpen, setPaneOpened] = useState(false);
   const [isOpenDialogSearchEvent, setOpenDialogSearch] = useState(false);
   const [queueToDelete,setQueueToDelete] = useState([]);
+  const [deployDisabled,setDeployDisabled] = useState(true);
   const [deployingStatus,setDeployingStatus] = useState(0);//0:idle 1:deploying 2:done
 
   useEffect(() => {
@@ -80,11 +82,15 @@ const DashboardAdmin = (props) => {
   const handleDeploy = () => {
     if (config.enableFirebase) {
       setDeployingStatus(1);
+      setDeployDisabled(true);
       const deployedData = prepareDataToSave(props.events, queueToDelete);
       database.ref('events').update(deployedData).then(
         ()=> {
           setTimeout(() => setDeployingStatus(2), 1000);
-          setTimeout(() => setDeployingStatus(0), 3000);
+          setTimeout(() => {
+            setDeployDisabled(true);
+            setDeployingStatus(0)
+          }, 3000);
         }
       ).catch(()=> {
         console.log('Error Updating Items')
@@ -123,16 +129,21 @@ const DashboardAdmin = (props) => {
 
           <AppBar className="app-bar" position="fixed" color="default">
           <Toolbar disableGutters={true} className="tool-bar">
+              <img src="images/icon.svg" alt="Popcorn" className="logo"/>
               <h1>{config.appTitle}</h1>
-              <button onClick={() => props.dispatch(startLogout())}>Log Out</button>
+              <Button onClick={() => props.dispatch(startLogout())}>Log Out</Button>
               <EventAddButtons handleAddEventManual={handleAddEventManual} handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} />
               <Button variant="contained" onClick={() => setPaneOpened(!isPaneOpen)}>Advanced Edition <Icon>code</Icon></Button>
-              <Button disabled={deployingStatus != 0} color="primary" variant="contained" onClick={handleDeploy}>
-                Save & Deploy 
-                { deployingStatus == 0 ? <Icon>screen_share</Icon> : ''}
-                { deployingStatus == 1 ? <CircularProgress color="primary" className="progress" size={16}/> : ''}
-                { deployingStatus == 2 ? <Icon>check_circle</Icon> : ''}                
-              </Button>
+              
+              <ButtonGroup size="small" aria-label="small outlined button group">
+                <Button disabled={deployDisabled} color="primary" variant="contained" onClick={handleDeploy}>
+                  Save & Deploy 
+                  { deployingStatus == 0 ? <Icon className="icon-button">screen_share</Icon> : ''}
+                  { deployingStatus == 1 ? <CircularProgress color="primary" className="progress" size={16}/> : ''}
+                  { deployingStatus == 2 ? <Icon className="icon-button">check_circle</Icon> : ''}     
+                </Button>
+              <Button color="primary" variant="contained" onClick={() => setDeployDisabled(!deployDisabled)}><Icon fontSize="small">{deployDisabled ? 'lock' : 'lock_open'}</Icon></Button>
+              </ButtonGroup>
             </Toolbar>
           </AppBar>  
           

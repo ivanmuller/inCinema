@@ -1,12 +1,12 @@
 - LoginPage Estilos
-- Limitar inputs al público.
 - Copy
-- Load / Save
 - Variabilizar todo en config.js
+- Candado en deploy
 - Crear Utils
+- Rearmar menú
+---- MVP
+- Load / Save
 - Aviso de borrar
-- Aviso de guardar (en el mismo botón: sure? yes/no)
-- App Mobile simple donde ver los cambios
 - Posibilidad de ocultar
 - Scroll Automático
 - Suscribirse
