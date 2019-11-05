@@ -1,7 +1,5 @@
-- LoginPage Estilos
-- Copy
 - Variabilizar todo en config.js
-- Crear Utils
+- Crear Utils (o quizás Hooks?)
 - Rearmar menú
 ---- MVP
 - Load / Save

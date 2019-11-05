@@ -12,7 +12,7 @@ $size-xl: 2.6rem;
 $size-xxl: 3.6rem;
 
 $poster-width-desktop: 105px;
-$poster-width-mobile: 65px;
+$poster-width-mobile: 55px;
 
 $app-bar-height: 64px;
 $mobile-breakpoint: 48rem; // 768 ÷ 16 = 48
@@ -26,7 +26,6 @@ $mobile-breakpoint: 48rem; // 768 ÷ 16 = 48
 }
 
 @mixin ellipsis($width: 100%) {
-	display: inline-block;
 	max-width: $width;
 	overflow: hidden;
 	text-overflow: ellipsis;

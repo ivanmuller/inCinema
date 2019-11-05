@@ -1,0 +1,38 @@
+.login-wrapper {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100vh;
+  padding:$size-l;
+  .logo {
+      max-width:124px;
+      display:block;
+      margin:0 auto $size-m auto;
+    }
+  .login-box {
+    margin-top:-125px;
+    padding:$size-l;
+    max-width:290px;
+    width:100%; 
+    h1 {
+      text-align: center;
+      margin-bottom:0;
+    }   
+    form {
+      display:flex;
+      flex-direction: column;
+      button {
+        margin-top:$size-l;
+      }
+    }    
+    .error {
+      display:block;
+      margin-top:$size-l;
+      color:$color-danger;
+    }
+  }
+  .link {
+    margin-top:$size-l
+  }
+}

@@ -49,10 +49,12 @@ const Event = (props) => {
   useEffect(() => {
     calculateDate();
   }, []);
+
+  const shouldShowAdmin = props.auth.uid && window.location.pathname == '/admin'; 
   
   return (
     <Card className={['event-item', finished && 'finished', playing && 'playing'].join(" ")}>
-      {props.auth.uid ? (
+      {shouldShowAdmin ? (
           <>
             <EventPosterAdmin id={props.id} playing={playing} />
             <EventTitleAdmin id={props.id} />

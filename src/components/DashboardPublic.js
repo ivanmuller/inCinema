@@ -1,14 +1,7 @@
 import React from 'react';
-
-// Redux Store
 import { connect } from 'react-redux';
 
-// Components
 import Event from './Event';
-
-// Third party
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import theme from './theme';
 import FlipMove from 'react-flip-move';
 
 const oderEvents = (events) => {
@@ -21,15 +14,13 @@ const DashboardPublic = (props) => {
 
   return (
     <div id="main" className="public">
-      <MuiThemeProvider theme={theme}>
-        <div className="events-list">
-          <FlipMove leaveAnimation="none">
-            {props.events.map((event, index) => (
-              <div key={event.id}><Event key={index} {...event} index={index} /></div>
-            ))}
-          </FlipMove>
-        </div>
-      </MuiThemeProvider>
+      <div className="events-list">
+        <FlipMove leaveAnimation="none">
+          {props.events.map((event, index) => (
+            <div key={event.id}><Event key={index} {...event} index={index} /></div>
+          ))}
+        </FlipMove>
+      </div>
     </div>
   )
 };

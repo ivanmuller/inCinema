@@ -2,20 +2,16 @@ import React, { useState, useEffect } from 'react';
 
 import config from '../config';
 
-// Redux Store
 import { connect } from 'react-redux';
 import { addEvent, editAllEvents } from '../actions/events';
 import { startLogout } from '../actions/auth';
 
-// Firebase
 import database from '../firebase/firebase';
 
-// Components
 import Event from './Event';
 import EventAdd from './EventAdd';
 import EventAddButtons from './EventAddButtons';
 
-// Third Party
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import Modal from 'react-modal';
@@ -23,9 +19,6 @@ import SlidingPane from 'react-sliding-pane';
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 import FlipMove from 'react-flip-move';
 
-// Third party styles
-import { MuiThemeProvider } from '@material-ui/core/styles';
-import theme from './theme';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import AppBar from '@material-ui/core/AppBar';
@@ -93,63 +86,61 @@ const DashboardAdmin = (props) => {
           }, 3000);
         }
       ).catch(()=> {
-        console.log('Error Updating Items')
+        alert('Error Updating Items');
       });
     }
   };
 
   return (
     <div id="main" className="admin">
-    
-      <MuiThemeProvider theme={theme}>
-          <SlidingPane
-            className="custom-sliding-pane"
-            isOpen={isPaneOpen}
-            title="Edit in Advanced Mode"
-            onRequestClose={() => {
-              setPaneOpened(false)
-            }}>
-            <JSONInput
-              id="advEditor"
-              placeholder={props.events}
-              locale={locale}
-              onChange={handleOnEdit}
-              width="100%"
-              height="100%"
-            />
-          </SlidingPane>
+  
+        <SlidingPane
+          className="custom-sliding-pane"
+          isOpen={isPaneOpen}
+          title="Edit in Advanced Mode"
+          onRequestClose={() => {
+            setPaneOpened(false)
+          }}>
+          <JSONInput
+            id="advEditor"
+            placeholder={props.events}
+            locale={locale}
+            onChange={handleOnEdit}
+            width="100%"
+            height="100%"
+          />
+        </SlidingPane>
 
-          <div className="events-list">
-            <FlipMove leaveAnimation="none">
-              {props.events.map((event, index) => (
-                <div key={event.id}><Event key={index} {...event} index={index} handleQueueToDelete={handleQueueToDelete}/></div>
-              ))}
-            </FlipMove>
-          </div>
+        <div className="events-list">
+          <FlipMove leaveAnimation="none">
+            {props.events.map((event, index) => (
+              <div key={event.id}><Event key={index} {...event} index={index} handleQueueToDelete={handleQueueToDelete}/></div>
+            ))}
+          </FlipMove>
+        </div>
 
-          <AppBar className="app-bar" position="fixed" color="default">
+        <AppBar className="app-bar" position="fixed" color="default">
           <Toolbar disableGutters={true} className="tool-bar">
-              <img src="images/icon.svg" alt="Popcorn" className="logo"/>
-              <h1>{config.appTitle}</h1>
-              <Button onClick={() => props.dispatch(startLogout())}>Log Out</Button>
-              <EventAddButtons handleAddEventManual={handleAddEventManual} handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} />
-              <Button variant="contained" onClick={() => setPaneOpened(!isPaneOpen)}>Advanced Edition <Icon>code</Icon></Button>
-              
-              <ButtonGroup size="small" aria-label="small outlined button group">
-                <Button disabled={deployDisabled} color="primary" variant="contained" onClick={handleDeploy}>
-                  Save & Deploy 
-                  { deployingStatus == 0 ? <Icon className="icon-button">screen_share</Icon> : ''}
-                  { deployingStatus == 1 ? <CircularProgress color="primary" className="progress" size={16}/> : ''}
-                  { deployingStatus == 2 ? <Icon className="icon-button">check_circle</Icon> : ''}     
-                </Button>
-              <Button color="primary" variant="contained" onClick={() => setDeployDisabled(!deployDisabled)}><Icon fontSize="small">{deployDisabled ? 'lock' : 'lock_open'}</Icon></Button>
-              </ButtonGroup>
-            </Toolbar>
-          </AppBar>  
-          
-        <EventAdd handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} isOpenDialogSearchEvent={isOpenDialogSearchEvent} />
+            <img src="images/icon.svg" alt="Popcorn" className="logo"/>
+            <h1>{config.appTitle}</h1>
+            <Button onClick={() => props.dispatch(startLogout())}>Log Out</Button>
+            <EventAddButtons handleAddEventManual={handleAddEventManual} handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} />
+            <Button variant="contained" onClick={() => setPaneOpened(!isPaneOpen)}>Advanced Edition <Icon className="icon-button">code</Icon></Button>
+            
+            <ButtonGroup aria-label="button group">
+              <Button disabled={deployDisabled} color="primary" variant="contained" onClick={handleDeploy}>
+                Save & Deploy 
+                { deployingStatus == 0 ? <Icon className="icon-button">screen_share</Icon> : ''}
+                { deployingStatus == 1 ? <CircularProgress color="primary" className="progress" size={16}/> : ''}
+                { deployingStatus == 2 ? <Icon className="icon-button">check_circle</Icon> : ''}     
+              </Button>
+              <Button color="primary" variant="contained" onClick={() => setDeployDisabled(!deployDisabled)}><Icon fontSize="small">{deployDisabled ? 'lock_open' : 'lock'}</Icon></Button>
+            </ButtonGroup>
+          </Toolbar>
+        </AppBar>  
+        
+      <EventAdd handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} isOpenDialogSearchEvent={isOpenDialogSearchEvent} />
 
-      </MuiThemeProvider>
     </div>
   )
 };

@@ -158,11 +158,19 @@
     .event-title {
       flex:0 0 calc(100% - #{$poster-width-mobile});
       width:calc(100% - #{$poster-width-mobile});
-    }
+      .event-type {
+        float:left;
+        font-size:$size-l;
+      }
+      .event-year {
+        float:left;
+        margin-left:$size-m;
+        font-size:$size-l;
+      }
+    }    
     .event-time {
       order:2;
       flex-grow:3;
-      padding-bottom:0;
       a span {
         margin-bottom:$size-xs;
       }
@@ -173,7 +181,6 @@
     }
     .event-room {
       order:4;
-      padding-bottom:0;
     }
     .event-actions {
       bottom:auto;
@@ -184,11 +191,20 @@
 }
 
 #main {
-  &.admin .event-item .event-title {
-    padding-top:0
+  &.admin .event-item {
+    .event-title {
+      padding-top:0
+    }
+    .event-room, .event-time {
+      @media (max-width: $mobile-breakpoint) {
+        padding-bottom:0;
+      }
+    }
   }
-  &.public .event-item .event-title {
-    @include ellipsis;
+  &.public .event-item {
+    .event-title h2 {
+      @include ellipsis;
+    }
   }
 }
 
