@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import config from '../config';
 
-// Redux Store
 import { connect } from 'react-redux';
 import { editEvent } from '../actions/events';
 
@@ -10,14 +9,17 @@ import Select from '@material-ui/core/Select';
 
 const EventRoomAdmin = ({ dispatch, event: { room, id }}) => {
   const [open, setOpen] = useState(false);
+
   const handleRoomChange = (e) => {
     const room = e.target.value;
     dispatch(editEvent(id, { room }));
   };
+
   const handleSetOpen = (e, status) => {
     setOpen(status);
     if (e) { e.preventDefault() }
   };
+
   return (
     <div className="event-item-section event-room">
       <a href="#" onClick={(e) => handleSetOpen(e, true)}><span>Room</span> {room}</a><br/>
@@ -27,8 +29,7 @@ const EventRoomAdmin = ({ dispatch, event: { room, id }}) => {
           onClose={(e) => handleSetOpen(e,false)}
           onOpen={(e) => handleSetOpen(e,true)}
           value={room}
-          onChange={handleRoomChange}
-        >
+          onChange={handleRoomChange} >
           {config.rooms.map((roomItem,i) => {
             return (
               <MenuItem key={i} value={roomItem}>{roomItem}</MenuItem>

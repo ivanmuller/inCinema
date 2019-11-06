@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
+import config from '../config';
 
-// Redux Store
 import { connect } from 'react-redux';
 import { editEvent } from '../actions/events';
 
@@ -24,28 +24,32 @@ const EventPosterAdmin = ({ playing, dispatch, event: { id, poster}}) => {
       setOpen(true);
       e.preventDefault();
     };
+
     const handleClose = () => {
       setOpen(false);
     };
+
     const handlePosterChange = () => {
       const poster = preview;
       dispatch(editEvent(id, { poster }));
       setOpen(false);
     };
+
     const handlePreviewChange = (e) => {
       const preview = e.target.value;
       setPreview(preview);
     };
+
     return (
       <div className="event-item-section event-poster">
         {playing && <Icon className="icon blink-1">play_arrow</Icon>}
         <a onClick={handleClickOpen}>
-          <img src={poster ? poster : "https://placeimg.com/640/960/nature/grayscale"} width="100%" />
+          <img src={poster ? poster : config.posterPlaceholderUrl} width="100%" />
         </a>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="sm">
           <Grid container>
             <Grid item xs={4}>
-              <img src={preview ? preview : "https://placeimg.com/640/960/nature/grayscale"} width="100%" />
+              <img src={preview ? preview : config.posterPlaceholderUrl} width="100%" />
             </Grid>
             <Grid item xs={8}>
               <Box display="flex" flexDirection="column" height="100%">
@@ -53,7 +57,7 @@ const EventPosterAdmin = ({ playing, dispatch, event: { id, poster}}) => {
                 <DialogContent dividers>
                   <DialogContentText>
                     Please add the url of the image here
-                </DialogContentText>
+                  </DialogContentText>
                   <TextField
                     autoFocus
                     multiline 
@@ -82,7 +86,7 @@ const EventPosterAdmin = ({ playing, dispatch, event: { id, poster}}) => {
 const EventPosterPublic = ({ playing, event: { poster } }) => (
   <div className="event-item-section event-poster">
     {playing && <Icon className="icon blink-1">play_arrow</Icon>}
-    <img src={poster ? poster : "https://placeimg.com/640/960/nature/grayscale"} width="100%" />
+    <img src={poster ? poster : config.posterPlaceholderUrl} width="100%" />
   </div>
 )
 

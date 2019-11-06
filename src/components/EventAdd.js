@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
+import config from '../config';
 
-// Redux Store
 import { connect } from 'react-redux';
 import { addEvent } from '../actions/events';
 
@@ -19,7 +19,6 @@ import MomentUtils from '@date-io/moment';
 
 import AsyncSelect from 'react-select/async';
 import { throttle } from 'lodash';
-import config from '../config.js';
 
 const mapOptionsToValues = options => {
   return options.map(option => ({
@@ -46,10 +45,10 @@ const EventAdd = ({ handleOpenDialogSearchEvent, isOpenDialogSearchEvent, dispat
             callback(mapOptionsToValues(data.results));
             setErrors('');
           } else {
-            setErrors('No results');
+            setErrors(config.errors.noResults);
           }
         }).catch(err => {
-          setErrors('Can\'t load database');
+          setErrors(config.errors.cantLoadDatabase);
         });
       });
     }, 1000);
@@ -65,10 +64,10 @@ const EventAdd = ({ handleOpenDialogSearchEvent, isOpenDialogSearchEvent, dispat
             setSelectedEvent(data);
             setErrors('');
           } else {
-            setErrors('No results');
+            setErrors(config.errors.noResults);
           }
         }).catch(err => {
-          setErrors('Can\'t load database');
+          setErrors(config.errors.cantLoadDatabase);
         });
       });
     }
@@ -93,7 +92,7 @@ const EventAdd = ({ handleOpenDialogSearchEvent, isOpenDialogSearchEvent, dispat
     dispatch(addEvent({
       title: selectedEvent.title, 
       year: selectedEvent.release_date.split('-')[0],
-      poster: 'https://image.tmdb.org/t/p/w500/' + selectedEvent.poster_path,
+      poster: config.posterUrl + selectedEvent.poster_path,
       datetime: selectedDate.format('YYYY-MM-DD HH:mm:ss'),
       duration: selectedEvent.runtime
     })
@@ -126,7 +125,7 @@ const EventAdd = ({ handleOpenDialogSearchEvent, isOpenDialogSearchEvent, dispat
       <Dialog open={openPreviewModal} className="event-add-preview" onClose={() => handleOpenPreviewModal(false)} aria-labelledby="form-dialog-title" maxWidth="md">
         <Grid container>
           <Grid item xs={4}>
-            {selectedEvent.poster_path && <img src={`https://image.tmdb.org/t/p/w500${selectedEvent.poster_path}`} width="100%" />}
+            {selectedEvent.poster_path && <img src={`${config.posterUrl + selectedEvent.poster_path}`} width="100%" />}
           </Grid>
           <Grid item xs={8}>
             <Box display="flex" flexDirection="column" height="100%">

@@ -1,10 +1,12 @@
 import React from 'react';
-import Icon from '@material-ui/core/Icon';
+import config from '../config';
 
-// Redux Store
 import { connect } from 'react-redux';
 
+import Icon from '@material-ui/core/Icon';
+
 const EventsSeats = ({ finished, event: { seats }}) => {
+
   const handleSeats = () => {
     switch (true) {
       case (seats === 0 || finished):
@@ -21,9 +23,10 @@ const EventsSeats = ({ finished, event: { seats }}) => {
         break;
     }
   };
+
   const handleSeatsIcons = () => {
     let renderedIcons = [];
-    if (seats <= 10) {
+    if (seats <= config.seatsWarningThresold) {
       for (let i = 0; i < seats; i++) {
         renderedIcons.push(<Icon key={i} color="error">event_seat</Icon>);
       }
@@ -35,8 +38,8 @@ const EventsSeats = ({ finished, event: { seats }}) => {
         <div className="icons-seats"><Icon>event_seat</Icon> {seats}+</div>
       )
     }
-    
   };
+
   return (
     <div className="event-item-section event-tickets">
       <span>{handleSeats()}</span>

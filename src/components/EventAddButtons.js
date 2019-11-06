@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react';
+import config from '../config';
+
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Icon from '@material-ui/core/Icon';
@@ -13,8 +15,6 @@ const EventAddButtons = ({handleAddEventManual, handleOpenDialogSearchEvent}) =>
   const [open, setOpen] = useState(false);
   const anchorRef = useRef(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
-
-  const options = ['Add movie from Database', 'Add movie Manually'];
 
   const handleClick = () => {
     if (selectedIndex == 0){
@@ -37,14 +37,13 @@ const EventAddButtons = ({handleAddEventManual, handleOpenDialogSearchEvent}) =>
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
-
     setOpen(false);
   };
 
   return (
     <>
     <ButtonGroup variant="contained" ref={anchorRef} aria-label="split button">
-      <Button onClick={handleClick}>{options[selectedIndex]}</Button>
+      <Button onClick={handleClick}>{config.optionsAdd[selectedIndex]}</Button>
       <Button 
         size="small"
         aria-owns={open ? 'menu-list-grow' : undefined}
@@ -65,7 +64,7 @@ const EventAddButtons = ({handleAddEventManual, handleOpenDialogSearchEvent}) =>
           <Paper id="menu-list-grow">
             <ClickAwayListener onClickAway={handleClose}>
               <MenuList>
-                {options.map((option, index) => (
+                {config.optionsAdd.map((option, index) => (
                   <MenuItem
                     key={option}
                     disabled={index === 2}

@@ -3,8 +3,9 @@
 - Rearmar menú
 ---- MVP
 - Load / Save
-- Aviso de borrar
 - Posibilidad de ocultar
+- Aviso de borrar
+----- EMOTION
 - Scroll Automático
 - Suscribirse
 - Historial/undo

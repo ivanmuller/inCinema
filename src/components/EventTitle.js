@@ -1,6 +1,5 @@
 import React from 'react';
 
-// Redux Store
 import { connect } from 'react-redux';
 import { editEvent } from '../actions/events';
 
@@ -8,10 +7,12 @@ import { EventYearAdminConn as EventYearAdmin, EventYearPublicConn as EventYearP
 import { EventTypeAdminConn as EventTypeAdmin, EventTypePublicConn as EventTypePublic } from './EventType';
 
 const EventTitleAdmin = ({dispatch, event: { title, id }}) => {
+
     const handleTitleChange = (e) => {
       const title = e.target.value;
       dispatch(editEvent(id, { title }));
     };
+
     return (
       <div className="event-item-section event-title">
         <h2>

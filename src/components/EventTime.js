@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import config from '../config';
 
-// Redux Store
 import { connect } from 'react-redux';
 import { editEvent } from '../actions/events';
 
@@ -26,7 +24,7 @@ const EventTimeAdmin = ({ dispatch, timeDifference, calculateDate, event: {id, d
 
   useEffect(() => {
     calculateDate();
-  }, [pickerIsOpen])
+  }, [pickerIsOpen]);
   
   return (
     <div className="event-item-section event-time">
@@ -46,7 +44,7 @@ const EventTimeAdmin = ({ dispatch, timeDifference, calculateDate, event: {id, d
   )
 }
 
-const EventTimePublic = ({ timeDifference, calculateDate }) => (
+const EventTimePublic = ({ timeDifference }) => (
   <div className="event-item-section event-time">
     <a dangerouslySetInnerHTML={{ __html: timeDifference }}></a>
   </div>

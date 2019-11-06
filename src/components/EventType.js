@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import config from '../config';
 
-// Redux Store
 import { connect } from 'react-redux';
 import { editEvent } from '../actions/events';
 
@@ -9,18 +8,22 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 
 const EventTypeAdmin = ({ dispatch, event: { type, id }}) => {
+
   const [open, setOpen] = useState(false);
+
   const handleChange = (e) => {
     const type = e.target.value;
     dispatch(editEvent(id, { type }));
   };  
+
   const handleSetOpen = (e, status) => {
     setOpen(status);
     if (e) { e.preventDefault() }
   };
+  
   return (
     <div className="event-type">
-        <a href="#" onClick={(e) => handleSetOpen(e,true)}>{type}</a><br/>
+        <a href="#/" onClick={(e) => handleSetOpen(e,true)}>{type}</a><br/>
         <Select
           className="hide"
           open={open}

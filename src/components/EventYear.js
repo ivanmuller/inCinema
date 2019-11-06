@@ -11,14 +11,17 @@ import Select from '@material-ui/core/Select';
 const EventYearAdmin = (props) => {
   const [open, setOpen] = useState(false);
   const { year, id } = props.event;
+
   const handleYearChange = (e) => {
     const year = e.target.value;
     props.dispatch(editEvent(id, { 'year': year }));
   };
+
   const handleOpenState = (e, status) => {
     setOpen(status);
     e.preventDefault();
   };
+
   const getYearsSelector = () => {
     const yearsMax = new Date().getFullYear();
     let renderedOptions = [];
@@ -27,6 +30,7 @@ const EventYearAdmin = (props) => {
     }    
     return renderedOptions
   }
+  
   return (
     <div className="event-year">
       <a href="#" onClick={(e) => handleOpenState(e, true)}>{year}</a><br />

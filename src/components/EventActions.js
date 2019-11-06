@@ -24,9 +24,9 @@ const EventActions = (props) => {
     
     return (
       <div className="event-actions">
-        <a href="/#"><Icon>visibility_off</Icon></a>
-        <a href="/#" onClick={(e) => handleCopyEvent(e)}><Icon>file_copy</Icon></a>
-        <a href="/#" className="delete" onClick={(e) => handleRemoveEvent(e)}><Icon>delete</Icon></a>
+        {/*<a href="#/"><Icon>visibility_off</Icon></a>*/}
+        <a href="#/" onClick={(e) => handleCopyEvent(e)}><Icon>file_copy</Icon></a>
+        <a href="#/" className="delete" onClick={(e) => handleRemoveEvent(e)}><Icon>delete</Icon></a>
       </div>
     )
 }

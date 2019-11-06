@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import config from '../config';
 
 import { connect } from 'react-redux';
@@ -86,7 +85,7 @@ const DashboardAdmin = (props) => {
           }, 3000);
         }
       ).catch(()=> {
-        alert('Error Updating Items');
+        console.log(config.errors.deploy);
       });
     }
   };
