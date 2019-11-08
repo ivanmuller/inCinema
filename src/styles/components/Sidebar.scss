@@ -1,0 +1,13 @@
+.sidebar {
+  width: $sidebar-width;
+  flex-shrink:0;
+  .MuiDrawer-paper {
+    width:$sidebar-width;
+  }
+  &-header {
+    display:flex;
+    align-items:center;
+    padding:$size-xs;
+    justify-content:'flex-start'
+  }
+}

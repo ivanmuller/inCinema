@@ -92,7 +92,7 @@ const EventAdd = ({ handleOpenDialogSearchEvent, isOpenDialogSearchEvent, dispat
     dispatch(addEvent({
       title: selectedEvent.title, 
       year: selectedEvent.release_date.split('-')[0],
-      poster: config.posterUrl + selectedEvent.poster_path,
+      poster: config.poster.urlBase + selectedEvent.poster_path,
       datetime: selectedDate.format('YYYY-MM-DD HH:mm:ss'),
       duration: selectedEvent.runtime
     })
@@ -125,7 +125,7 @@ const EventAdd = ({ handleOpenDialogSearchEvent, isOpenDialogSearchEvent, dispat
       <Dialog open={openPreviewModal} className="event-add-preview" onClose={() => handleOpenPreviewModal(false)} aria-labelledby="form-dialog-title" maxWidth="md">
         <Grid container>
           <Grid item xs={4}>
-            {selectedEvent.poster_path && <img src={`${config.posterUrl + selectedEvent.poster_path}`} width="100%" />}
+            {selectedEvent.poster_path && <img src={`${config.poster.urlBase + selectedEvent.poster_path}`} width="100%" />}
           </Grid>
           <Grid item xs={8}>
             <Box display="flex" flexDirection="column" height="100%">

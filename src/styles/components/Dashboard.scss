@@ -7,6 +7,8 @@
   bottom:0;
   top: auto !important;
   padding:0 $size-l;
+  left:0 !important;
+  @include transition-sidebar;
   .tool-bar {
     display:flex;
     justify-content:flex-end;

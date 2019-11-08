@@ -54,6 +54,7 @@ const Event = (props) => {
     <Card className={['event-item', finished && 'finished', playing && 'playing'].join(" ")}>
       {shouldShowAdmin ? (
           <>
+            <div className="event-number">{props.index + 1}</div>
             <EventPosterAdmin id={props.id} playing={playing} />
             <EventTitleAdmin id={props.id} />
             <EventTimeAdmin id={props.id} timeDifference={timeDifference} calculateDate={calculateDate} />

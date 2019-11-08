@@ -82,3 +82,12 @@ button:disabled {
   }
 }
 
+#main {
+  @include transition-sidebar;
+}
+
+.recalc-sidebar {
+  width:calc(100% - #{$sidebar-width}) !important;
+   @include transition-sidebar;
+}
+

@@ -1,6 +1,6 @@
-- Variabilizar todo en config.js
 - Crear Utils (o quizás Hooks?)
 - Rearmar menú
+- Netifly / Dominio
 ---- MVP
 - Load / Save
 - Posibilidad de ocultar

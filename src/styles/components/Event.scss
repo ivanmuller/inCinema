@@ -5,6 +5,17 @@
   margin-bottom:$size-m;
   position:relative; 
   overflow:visible !important;
+  .event-number {
+    position:absolute;
+    top:0;
+    left:0;
+    background:rgba(255,255,255,.75);
+    border-radius:5px;
+    padding:5px;
+    border-radius:4px 0 4px 0;
+    z-index:555;
+    font-weight: bold;
+  }
   .event-item-section {
     padding:$size-m $size-l;
     flex:1 0;
@@ -13,6 +24,8 @@
     flex:0 0 $poster-width-desktop;
     padding:0;
     position:relative;
+    border-radius:4px 0 0 0;
+    overflow:hidden;
     .icon {
       width:7rem;
       height:7rem;

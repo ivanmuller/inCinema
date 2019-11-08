@@ -3,7 +3,6 @@ import config from '../config';
 
 import { connect } from 'react-redux';
 import { addEvent, editAllEvents } from '../actions/events';
-import { startLogout } from '../actions/auth';
 
 import database from '../firebase/firebase';
 
@@ -17,7 +16,9 @@ import Modal from 'react-modal';
 import SlidingPane from 'react-sliding-pane';
 import 'react-sliding-pane/dist/react-sliding-pane.css';
 import FlipMove from 'react-flip-move';
+import Sidebar from './Sidebar';
 
+import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import AppBar from '@material-ui/core/AppBar';
@@ -48,6 +49,7 @@ const DashboardAdmin = (props) => {
   const [queueToDelete,setQueueToDelete] = useState([]);
   const [deployDisabled,setDeployDisabled] = useState(true);
   const [deployingStatus,setDeployingStatus] = useState(0);//0:idle 1:deploying 2:done
+  const [isSidebarOpen, setSidebarOpened] = useState(false);
 
   useEffect(() => {
     Modal.setAppElement('#main');
@@ -71,6 +73,10 @@ const DashboardAdmin = (props) => {
     setQueueToDelete([...queueToDelete,id]);
   };
 
+  const handleSidebarOpen = (status) => {
+    setSidebarOpened(status);
+  };
+
   const handleDeploy = () => {
     if (config.enableFirebase) {
       setDeployingStatus(1);
@@ -91,8 +97,9 @@ const DashboardAdmin = (props) => {
   };
 
   return (
-    <div id="main" className="admin">
-  
+    <>
+      <div id="main" className={"admin " + (isSidebarOpen && 'recalc-sidebar')}>
+    
         <SlidingPane
           className="custom-sliding-pane"
           isOpen={isPaneOpen}
@@ -118,11 +125,10 @@ const DashboardAdmin = (props) => {
           </FlipMove>
         </div>
 
-        <AppBar className="app-bar" position="fixed" color="default">
+        <AppBar className={"app-bar " + (isSidebarOpen && 'recalc-sidebar')} position="fixed" color="default">
           <Toolbar disableGutters={true} className="tool-bar">
             <img src="images/icon.svg" alt="Popcorn" className="logo"/>
             <h1>{config.appTitle}</h1>
-            <Button onClick={() => props.dispatch(startLogout())}>Log Out</Button>
             <EventAddButtons handleAddEventManual={handleAddEventManual} handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} />
             <Button variant="contained" onClick={() => setPaneOpened(!isPaneOpen)}>Advanced Edition <Icon className="icon-button">code</Icon></Button>
             
@@ -135,12 +141,22 @@ const DashboardAdmin = (props) => {
               </Button>
               <Button color="primary" variant="contained" onClick={() => setDeployDisabled(!deployDisabled)}><Icon fontSize="small">{deployDisabled ? 'lock_open' : 'lock'}</Icon></Button>
             </ButtonGroup>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              edge="end"
+              onClick={() => { handleSidebarOpen(!isSidebarOpen)}}
+            >
+              <Icon>menu</Icon>
+            </IconButton>
           </Toolbar>
         </AppBar>  
-        
-      <EventAdd handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} isOpenDialogSearchEvent={isOpenDialogSearchEvent} />
+          
+        <EventAdd handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} isOpenDialogSearchEvent={isOpenDialogSearchEvent} />
 
-    </div>
+      </div>
+      <Sidebar isSidebarOpen={isSidebarOpen} handleSidebarOpen={handleSidebarOpen}/>
+    </>
   )
 };
 

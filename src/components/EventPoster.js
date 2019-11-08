@@ -44,12 +44,12 @@ const EventPosterAdmin = ({ playing, dispatch, event: { id, poster}}) => {
       <div className="event-item-section event-poster">
         {playing && <Icon className="icon blink-1">play_arrow</Icon>}
         <a onClick={handleClickOpen}>
-          <img src={poster ? poster : config.posterPlaceholderUrl} width="100%" />
+          <img src={poster ? poster : config.poster.placeholder} width="100%" />
         </a>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title" maxWidth="sm">
           <Grid container>
             <Grid item xs={4}>
-              <img src={preview ? preview : config.posterPlaceholderUrl} width="100%" />
+              <img src={preview ? preview : config.poster.placeholder} width="100%" />
             </Grid>
             <Grid item xs={8}>
               <Box display="flex" flexDirection="column" height="100%">
@@ -86,7 +86,7 @@ const EventPosterAdmin = ({ playing, dispatch, event: { id, poster}}) => {
 const EventPosterPublic = ({ playing, event: { poster } }) => (
   <div className="event-item-section event-poster">
     {playing && <Icon className="icon blink-1">play_arrow</Icon>}
-    <img src={poster ? poster : config.posterPlaceholderUrl} width="100%" />
+    <img src={poster ? poster : config.poster.placeholder} width="100%" />
   </div>
 )
 
