@@ -34,20 +34,6 @@ button:disabled {
   cursor: default;
 }
 
-.custom-sliding-pane {
-  background:transparent;
-  .slide-pane__content {
-    padding:0;
-    padding-bottom:$app-bar-height;
-    #advEditor {
-      &-body {
-        background:rgba(30,30,30,0.87) !important;
-        font-size: $size-m !important;
-      }
-    }
-  }
-}
-
 .hide {
   visibility: hidden;
   height:0;
@@ -84,10 +70,9 @@ button:disabled {
 
 #main {
   @include transition-sidebar;
-}
-
-.recalc-sidebar {
-  width:calc(100% - #{$sidebar-width}) !important;
-   @include transition-sidebar;
+  &.sidebar-opened {
+    width:calc(100% - #{$sidebar-width}) !important;
+    @include transition-sidebar;
+  }
 }
 

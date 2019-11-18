@@ -1,10 +1,10 @@
 - Crear Utils (o quizás Hooks?)
-- Rearmar menú
 - Netifly / Dominio
+- Publicar en GITHUB
 ---- MVP
+- Aviso de borrar
 - Load / Save
 - Posibilidad de ocultar
-- Aviso de borrar
 ----- EMOTION
 - Scroll Automático
 - Suscribirse

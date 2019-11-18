@@ -1,0 +1,22 @@
+.custom-sliding-pane {
+  background:transparent;
+  &.sidebar-opened {
+     margin-right:#{$sidebar-width};
+     width:100%;
+  }
+  .slide-pane__header {
+    flex-basis:69px;
+    height:69px;
+    background:#FFF
+  }
+  .slide-pane__content {
+    padding:0;
+    padding-bottom:$app-bar-height;
+    #advEditor {
+      &-body {
+        background:rgba(30,30,30,0.9) !important;
+        font-size: $size-m !important;
+      }
+    }
+  }
+}

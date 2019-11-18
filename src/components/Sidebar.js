@@ -3,12 +3,15 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { startLogout } from '../actions/auth';
 
+import AdvancedEdition from './AdvancedEdition';
+
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 const Sidebar = (props) => {
@@ -22,28 +25,25 @@ const Sidebar = (props) => {
       >
         <div className="sidebar-header">
           <IconButton onClick={() => props.handleSidebarOpen(false)}>
-            <Icon>keyboard_arrow_left</Icon>
+            <Icon>close</Icon>
           </IconButton>
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+          <AdvancedEdition isSidebarOpen={props.isSidebarOpen} />
+          <ListItem button disabled>
+            <ListItemIcon>
+              <Icon>save</Icon>
+            </ListItemIcon>
+            <ListItemText primary="Load / Save" secondary="Feature coming soon" />
+          </ListItem>
         </List>
         <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <ListItem button>
-          <ListItemText primary="Log Out" onClick={() => props.dispatch(startLogout())}/>
+        <ListItem button onClick={() => props.dispatch(startLogout())}>
+          <ListItemIcon>
+            <Icon>exit_to_app</Icon>
+          </ListItemIcon>
+          <ListItemText primary="Log Out" />
         </ListItem>
       </Drawer>
     </>

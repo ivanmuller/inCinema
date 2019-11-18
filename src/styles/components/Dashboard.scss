@@ -24,4 +24,8 @@
       margin-left:$size-m;
     }
   }
+  &.sidebar-opened {
+    width:calc(100% - #{$sidebar-width}) !important;
+    @include transition-sidebar;
+  }
 }

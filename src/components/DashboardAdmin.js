@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import config from '../config';
 
 import { connect } from 'react-redux';
-import { addEvent, editAllEvents } from '../actions/events';
+import { addEvent } from '../actions/events';
 
 import database from '../firebase/firebase';
 
@@ -10,11 +10,6 @@ import Event from './Event';
 import EventAdd from './EventAdd';
 import EventAddButtons from './EventAddButtons';
 
-import JSONInput from 'react-json-editor-ajrm';
-import locale from 'react-json-editor-ajrm/locale/en';
-import Modal from 'react-modal';
-import SlidingPane from 'react-sliding-pane';
-import 'react-sliding-pane/dist/react-sliding-pane.css';
 import FlipMove from 'react-flip-move';
 import Sidebar from './Sidebar';
 
@@ -44,22 +39,11 @@ const oderEvents = (events) => {
 };
 
 const DashboardAdmin = (props) => {
-  const [isPaneOpen, setPaneOpened] = useState(false);
   const [isOpenDialogSearchEvent, setOpenDialogSearch] = useState(false);
   const [queueToDelete,setQueueToDelete] = useState([]);
   const [deployDisabled,setDeployDisabled] = useState(true);
   const [deployingStatus,setDeployingStatus] = useState(0);//0:idle 1:deploying 2:done
   const [isSidebarOpen, setSidebarOpened] = useState(false);
-
-  useEffect(() => {
-    Modal.setAppElement('#main');
-  }, []);
-
-  const handleOnEdit = (r) => {
-    if (!r.error) {
-      props.dispatch(editAllEvents(r.jsObject));
-    }
-  };
 
   const handleOpenDialogSearchEvent = (status) => {
     setOpenDialogSearch(status);
@@ -98,25 +82,8 @@ const DashboardAdmin = (props) => {
 
   return (
     <>
-      <div id="main" className={"admin " + (isSidebarOpen && 'recalc-sidebar')}>
+      <div id="main" className={"admin " + (isSidebarOpen && 'sidebar-opened')}>
     
-        <SlidingPane
-          className="custom-sliding-pane"
-          isOpen={isPaneOpen}
-          title="Edit in Advanced Mode"
-          onRequestClose={() => {
-            setPaneOpened(false)
-          }}>
-          <JSONInput
-            id="advEditor"
-            placeholder={props.events}
-            locale={locale}
-            onChange={handleOnEdit}
-            width="100%"
-            height="100%"
-          />
-        </SlidingPane>
-
         <div className="events-list">
           <FlipMove leaveAnimation="none">
             {props.events.map((event, index) => (
@@ -125,22 +92,24 @@ const DashboardAdmin = (props) => {
           </FlipMove>
         </div>
 
-        <AppBar className={"app-bar " + (isSidebarOpen && 'recalc-sidebar')} position="fixed" color="default">
+        <AppBar className={"app-bar " + (isSidebarOpen && 'sidebar-opened')} position="fixed" color="default">
           <Toolbar disableGutters={true} className="tool-bar">
+
             <img src="images/icon.svg" alt="Popcorn" className="logo"/>
             <h1>{config.appTitle}</h1>
+
             <EventAddButtons handleAddEventManual={handleAddEventManual} handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} />
-            <Button variant="contained" onClick={() => setPaneOpened(!isPaneOpen)}>Advanced Edition <Icon className="icon-button">code</Icon></Button>
-            
+
             <ButtonGroup aria-label="button group">
               <Button disabled={deployDisabled} color="primary" variant="contained" onClick={handleDeploy}>
-                Save & Deploy 
+                Send & Deploy 
                 { deployingStatus == 0 ? <Icon className="icon-button">screen_share</Icon> : ''}
                 { deployingStatus == 1 ? <CircularProgress color="primary" className="progress" size={16}/> : ''}
-                { deployingStatus == 2 ? <Icon className="icon-button">check_circle</Icon> : ''}     
+                { deployingStatus == 2 ? <Icon className="icon-button">check_circle</Icon> : ''}
               </Button>
               <Button color="primary" variant="contained" onClick={() => setDeployDisabled(!deployDisabled)}><Icon fontSize="small">{deployDisabled ? 'lock_open' : 'lock'}</Icon></Button>
             </ButtonGroup>
+
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -149,6 +118,7 @@ const DashboardAdmin = (props) => {
             >
               <Icon>menu</Icon>
             </IconButton>
+
           </Toolbar>
         </AppBar>  
           

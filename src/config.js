@@ -9,7 +9,7 @@ export default {
     'moviedb': 'ed013855c309922c99e0175e84b6da07'
   },
   'poster': {
-    'urlBase': 'https://image.tmdb.org/t/p/w500/',
+    'urlBase': 'https://image.tmdb.org/t/p/w500',
     'placeholder': 'https://placeimg.com/640/960/nature/grayscale'
   },
   'errors': {
