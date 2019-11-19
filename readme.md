@@ -1,4 +1,3 @@
-- Crear Utils (o quizás Hooks?)
 - Netifly / Dominio
 - Publicar en GITHUB
 ---- MVP
