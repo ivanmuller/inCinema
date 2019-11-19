@@ -1,10 +1,10 @@
-- Netifly / Dominio
+- Netifly / Dominio (regenerar keys?)
 - Publicar en GITHUB
 ---- MVP
 - Aviso de borrar
 - Load / Save
 - Posibilidad de ocultar
------ LONG TERM
 - Scroll Automático
+----- LONG TERM
 - Suscribirse
 - Historial/undo
