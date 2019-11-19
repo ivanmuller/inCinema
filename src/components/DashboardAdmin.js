@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import config from '../config';
+import { prepareDataToSave, oderEvents } from '../utils/utils';
 
 import { connect } from 'react-redux';
 import { addEvent } from '../actions/events';
@@ -20,23 +21,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Icon from '@material-ui/core/Icon';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-const prepareDataToSave = (mapper,itemsToRemove) => {
-  let dataToSave = {};
-  mapper.forEach(({id,...event}) => {
-    dataToSave[id] = event;
-  });
-  itemsToRemove.forEach((id) => {
-    dataToSave[id] = null;
-  });
-  return dataToSave;
-}
-
-const oderEvents = (events) => {
-  return events.sort((a, b) => {
-    return a.datetime < b.datetime ? -1 : 1;
-  });
-};
 
 const DashboardAdmin = (props) => {
   const [isOpenDialogSearchEvent, setOpenDialogSearch] = useState(false);

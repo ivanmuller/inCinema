@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import config from '../config';
 
-// Redux Store
 import { connect } from 'react-redux';
 import { editEvent } from '../actions/events';
 

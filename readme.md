@@ -5,7 +5,7 @@
 - Aviso de borrar
 - Load / Save
 - Posibilidad de ocultar
------ EMOTION
+----- LONG TERM
 - Scroll Automático
 - Suscribirse
 - Historial/undo

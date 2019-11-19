@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import config from '../config';
+import { mapOptionsToValues } from '../utils/utils';
 
 import { connect } from 'react-redux';
 import { addEvent } from '../actions/events';
@@ -20,21 +21,14 @@ import MomentUtils from '@date-io/moment';
 import AsyncSelect from 'react-select/async';
 import { throttle } from 'lodash';
 
-const mapOptionsToValues = options => {
-  return options.map(option => ({
-    value: option.id,
-    label: option.title + " - " + option.release_date.split('-')[0]
-  }));
-};
-
 const EventAdd = ({ handleOpenDialogSearchEvent, isOpenDialogSearchEvent, dispatch }) => {
   const [hasError, setErrors] = useState('');
   const [eventId, setEventId] = useState();
   const [selectedEvent, setSelectedEvent] = useState('');
   const [openPreviewModal, setOpenPreviewModal] = useState(false);
   const [selectedDate, setSelectedDate] = useState(moment());
-  const getOptions = (inputValue, callback) => {
 
+  const getOptions = (inputValue, callback) => {
     if (!inputValue) {
       return callback([]);
     }

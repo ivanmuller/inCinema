@@ -1,14 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { oderEvents } from '../utils/utils';
 
 import Event from './Event';
 import FlipMove from 'react-flip-move';
-
-const oderEvents = (events) => {
-  return events.sort((a, b) => {
-    return a.datetime < b.datetime ? -1 : 1;
-  });
-};
 
 const DashboardPublic = (props) => {
 
