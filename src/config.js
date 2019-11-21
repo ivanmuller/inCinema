@@ -1,8 +1,8 @@
 export default {
   'appTitle': 'The Classic Cinema',
   'dateIntervalrefresh': 6000,
-  'rooms': ['14','25','11','Big one','kids'],
-  'types': ['Imax 3D', 'Classic'],
+  'rooms': ['1','2','3','Main','kids'],
+  'types': ['Imax 3D', 'Classic', '4D'],
   'enableFirebase': true,
   'yearsMin': 1950,
   'api': {
