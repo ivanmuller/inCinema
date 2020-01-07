@@ -1,6 +1,6 @@
 # 🍿 inCinema React App
 
-A live panel with movies to use in cinemas, with authentication to admin panel and deploy function to share with connected devices in real time. 
+A live panel of movies to be used in cinemas, with authentication to admin panel and deploy function to share to connected devices in real time. 
 Take a look to the [demo](https://incinema.netlify.com/admin) and [contact me](mailto:ivanmuller2.0@gmail.com) if you want to have a look to the **admin panel**. 
 
 > This app can be easily adapted to any live events suchs as Music Festivals or Conferences.
