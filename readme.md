@@ -2,7 +2,7 @@
 
 A live panel of movies to be used in cinemas, with authentication to admin panel and deploy function to share to connected devices in real time. 
 Take a look to the [demo](https://incinema.netlify.com/admin) and [contact me](mailto:ivanmuller2.0@gmail.com) if you want to have a look to the **admin panel**. 
-
+![demostration](http://ivanmuller.me/images/inCinema.gif)
 > This app can be easily adapted to any live events suchs as Music Festivals or Conferences.
 
 ## Features
@@ -31,6 +31,7 @@ Take a look to the [demo](https://incinema.netlify.com/admin) and [contact me](m
 
 - [x] Copy
 - [x] Advanced Edition
+- [ ] Redux-based dialogs
 - [ ] Load / Save
 - [ ] Hide an event
 - [ ] Automatic scroll
