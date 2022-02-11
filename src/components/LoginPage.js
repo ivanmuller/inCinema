@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const LoginPage = ({ startLogin }) => {
-  const [email,setEmail] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [clickStatus, setClickStatus] = useState(0);//0:idle 1:loading

@@ -13,7 +13,10 @@ import configureStore from './store/configureStore';
 import { fetchAllEvents } from './actions/events';
 
 // Firebase
-import database, {firebase} from './firebase/firebase';
+import { initializeApp } from "firebase/app";
+import dbSettings from './firebase/firebase';
+import { onAuthStateChanged, getAuth } from "firebase/auth";
+import { ref as sRef, onValue, getDatabase } from "firebase/database";
 
 import cogoToast from 'cogo-toast';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -24,6 +27,11 @@ import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 
 const store = configureStore();
+
+//firebase
+const appDB = initializeApp(dbSettings);
+const database = getDatabase(appDB);
+const auth = getAuth(appDB);
 
 const app = (
   <Provider store={store}>
@@ -47,7 +55,8 @@ ReactDOM.render(loading, document.getElementById('app'));
 let firstLoad = true;
 if (config.enableFirebase) {
 
-  database.ref('events').on('value', (snapshot) => {
+  const eventsRefDB = sRef(database, 'events');
+  onValue(eventsRefDB, (snapshot) => {
     const events = [];
     snapshot.forEach((childSnapshot) => {
       events.push({
@@ -74,7 +83,7 @@ if (config.enableFirebase) {
   ReactDOM.render(app, document.getElementById('app'));
 }
 
-firebase.auth().onAuthStateChanged((user) => {
+onAuthStateChanged(auth, user => {
   if (user) {
     store.dispatch(login(user.uid));
   } else {

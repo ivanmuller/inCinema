@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { oderEvents } from '../utils/utils';
+import { Link } from "react-router-dom";
 
 import Event from './Event';
 import FlipMove from 'react-flip-move';
@@ -16,6 +17,7 @@ const DashboardPublic = (props) => {
           ))}
         </FlipMove>
       </div>
+      <Link className="link" to="/login">Go</Link>
     </div>
   )
 };
