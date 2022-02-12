@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import config from './config';
 import { isAdmin } from './utils/utils';
-import AppRouter, {history} from './routers/AppRouter';
+import AppRouter from './routers/AppRouter';
 import fakeData from './data/data';
 import { login, logout } from './actions/auth';
 

@@ -7,7 +7,6 @@ import Event from './Event';
 import FlipMove from 'react-flip-move';
 
 const DashboardPublic = (props) => {
-
   return (
     <div id="main" className="public">
       <div className="events-list">

@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import {v4 as uuid} from 'uuid';
 import moment from 'moment';
 import config from '../config';
 

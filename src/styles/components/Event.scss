@@ -154,6 +154,10 @@
     }
   }
 
+  .MuiMenu-list {
+    max-height:300px;
+  }
+
   @media (max-width: $mobile-breakpoint) {
     &::after {
       content: '';

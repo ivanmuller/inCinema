@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 if (process.env.NODE_ENV === 'development') {
@@ -56,16 +57,23 @@ module.exports = (env) => {
         'process.env.FIREBASE_MESSAGING_SENDER_ID': JSON.stringify(process.env.FIREBASE_MESSAGING_SENDER_ID),
         'process.env.FIREBASE_APP_ID': JSON.stringify(process.env.FIREBASE_APP_ID),
         'process.env.FIREBASE_MEASUREMENT_ID': JSON.stringify(process.env.FIREBASE_MEASUREMENT_ID),
+      }),
+      new HtmlWebpackPlugin({
+        inject: true,
+        template: path.join(__dirname, 'public/index.html')
       })
     ],
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
-      inline: true,
-      host: '192.168.1.105',
+      static: {
+        directory: path.join(__dirname, 'public'),
+        publicPath: '/',
+      },
+      compress: true,
       port: 8000,
-      contentBase: path.join(__dirname, 'public'),
+      host: 'local-ipv4',
       historyApiFallback: true,
-      publicPath: '/'
+      hot: true
     }
   }
 }

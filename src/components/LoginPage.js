@@ -52,7 +52,7 @@ const LoginPage = ({ startLogin }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <Button disabled={clickStatus == 1} onClick={handleSubmit} color="primary" variant="contained">Log In {clickStatus == 1 ? <CircularProgress color="primary" className="progress" size={16} /> : ''}</Button>
+          <Button disabled={clickStatus == 1} onClick={handleSubmit} color="primary" variant="contained">{clickStatus == 1 ? <>Logging In <CircularProgress color="primary" className="progress" size={16} /></> : 'Log In'}</Button>
         </form>
         {error && <span className="error">{error.message}</span>}
       </Card>
