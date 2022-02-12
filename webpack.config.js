@@ -66,7 +66,7 @@ module.exports = (env) => {
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
       static: {
-        directory: path.join(__dirname, 'public'),
+        directory: path.join(__dirname, 'public', 'dist'),
         publicPath: '/',
       },
       compress: true,
