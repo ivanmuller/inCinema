@@ -1,6 +1,10 @@
 .events-list {
   padding:$size-m;
   padding-bottom: $app-bar-height;
+  min-height:100vh;
+  #main.admin & {
+    background:$admin-list-bg
+  }
 }
 
 .app-bar {

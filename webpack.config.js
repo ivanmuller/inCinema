@@ -14,37 +14,50 @@ module.exports = (env) => {
   const CSSExtract = new MiniCssExtractPlugin({ filename: 'styles.css' });
 
   return {
+    mode: process.env.NODE_ENV,
     entry: ['@babel/polyfill', './src/app.js'],
     output: {
       path: path.join(__dirname, 'public', 'dist'),
       filename: 'bundle.js',
       publicPath: '/'
     },
+    resolve: {
+      alias: {
+        "@": path.resolve(__dirname, "public"),
+      }
+    },
     module: {
-      rules: [{
-        loader: 'babel-loader',
-        test: /\.js$/,
-        exclude: /node_modules/
-      }, {
-        test: /\.s?css$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              sourceMap: true
+      rules: [
+        {
+          loader: 'babel-loader',
+          test: /\.js$/,
+          exclude: /node_modules/
+        }, 
+        {
+          test: /\.s?css$/,
+          use: [
+            {
+              loader: MiniCssExtractPlugin.loader
+            },
+            {
+              loader: 'css-loader',
+              options: {
+                sourceMap: true
+              }
+            },
+            {
+              loader: 'sass-loader',
+              options: {
+                sourceMap: true
+              }
             }
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              sourceMap: true
-            }
-          }
-        ]
-      }]
+          ]
+        },
+        {
+          test: /\.(png|svg|jpg|jpeg|gif)$/i,
+          type: "asset/resource",
+        }
+      ]
     },
     plugins: [
       CSSExtract,
@@ -60,14 +73,15 @@ module.exports = (env) => {
       }),
       new HtmlWebpackPlugin({
         inject: true,
-        template: path.join(__dirname, 'public/index.html')
+        template: path.join(__dirname, 'public/index.html'),
+        title: process.env.NODE_ENV
       })
     ],
     devtool: isProduction ? 'source-map' : 'inline-source-map',
     devServer: {
       static: {
         directory: path.join(__dirname, 'public', 'dist'),
-        publicPath: '/',
+        publicPath: '/'
       },
       compress: true,
       port: 8000,

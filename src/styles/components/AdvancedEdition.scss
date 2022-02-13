@@ -9,6 +9,9 @@
     height:69px;
     background:#FFF
   }
+  .slide-pane__close svg {
+    transform: rotate(180deg);
+  }
   .slide-pane__content {
     padding:0;
     padding-bottom:$app-bar-height;

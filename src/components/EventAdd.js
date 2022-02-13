@@ -97,7 +97,7 @@ const EventAdd = ({ handleOpenDialogSearchEvent, isOpenDialogSearchEvent, dispat
   return (
     <>
       <Dialog open={isOpenDialogSearchEvent} onClose={() => handleOpenDialogSearchEvent(false)} aria-labelledby="form-dialog-title" maxWidth="lg" className="event-add-search">
-        <DialogTitle id="form-dialog-title"><img src="images/tmdb.svg" width="42" /> &nbsp; Search in The Movie Database</DialogTitle>
+        <DialogTitle id="form-dialog-title"><img src={require("@/images/tmdb.svg")} width="42" /> &nbsp; Search in The Movie Database</DialogTitle>
         <DialogContent dividers>
           <DialogContentText>
             {hasError && <span>{JSON.stringify(hasError)}</span>}

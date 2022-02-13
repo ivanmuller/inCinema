@@ -5,7 +5,8 @@ import { prepareDataToSave, oderEvents } from '../utils/utils';
 import { connect } from 'react-redux';
 import { addEvent } from '../actions/events';
 
-import database from '../firebase/firebase';
+// Firebase
+import { ref as sRef, set as sSet, getDatabase } from "firebase/database";
 
 import Event from './Event';
 import EventAdd from './EventAdd';
@@ -39,6 +40,7 @@ const DashboardAdmin = (props) => {
 
   const handleQueueToDelete = (id) => {
     setQueueToDelete([...queueToDelete,id]);
+    console.log(queueToDelete);
   };
 
   const handleSidebarOpen = (status) => {
@@ -47,10 +49,14 @@ const DashboardAdmin = (props) => {
 
   const handleDeploy = () => {
     if (config.enableFirebase) {
+      //firebase
+      const database = getDatabase();
+      const eventsRefDB = sRef(database, 'events');
+
       setDeployingStatus(1);
       setDeployDisabled(true);
       const deployedData = prepareDataToSave(props.events, queueToDelete);
-      database.ref('events').update(deployedData).then(
+      sSet(eventsRefDB, deployedData).then(
         ()=> {
           setTimeout(() => setDeployingStatus(2), 1000);
           setTimeout(() => {
@@ -79,19 +85,18 @@ const DashboardAdmin = (props) => {
         <AppBar className={"app-bar " + (isSidebarOpen && 'sidebar-opened')} position="fixed" color="default">
           <Toolbar disableGutters={true} className="tool-bar">
 
-            <img src="images/icon.svg" alt="Popcorn" className="logo"/>
+            <img src={require("@/images/icon.svg")} alt="Popcorn" className="logo"/>
             <h1>{config.appTitle}</h1>
 
             <EventAddButtons handleAddEventManual={handleAddEventManual} handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} />
 
             <ButtonGroup aria-label="button group">
               <Button disabled={deployDisabled} color="primary" variant="contained" onClick={handleDeploy}>
-                Send & Deploy 
-                { deployingStatus == 0 ? <Icon className="icon-button">screen_share</Icon> : ''}
-                { deployingStatus == 1 ? <CircularProgress color="primary" className="progress" size={16}/> : ''}
-                { deployingStatus == 2 ? <Icon className="icon-button">check_circle</Icon> : ''}
+                {deployingStatus == 0 ? <>Send & Deploy <Icon className="icon-button">screen_share</Icon></> : ''}
+                {deployingStatus == 1 ? <>Sending... <CircularProgress color="primary" className="progress" size={16} /></> : ''}
+                {deployingStatus == 2 ? <>Done! <Icon className="icon-button">check_circle</Icon></> : ''}
               </Button>
-              <Button color="primary" variant="contained" onClick={() => setDeployDisabled(!deployDisabled)}><Icon fontSize="small">{deployDisabled ? 'lock_open' : 'lock'}</Icon></Button>
+              <Button color="primary" variant="contained" onClick={() => setDeployDisabled(!deployDisabled)}><Icon fontSize="small">{deployDisabled ? 'lock' : 'lock_open'}</Icon></Button>
             </ButtonGroup>
 
             <IconButton

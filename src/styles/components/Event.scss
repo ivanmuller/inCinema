@@ -42,8 +42,8 @@
     }
   }
   .event-title {
-    flex:0 0 35%;
-    width:35%;
+    flex:0 0 45%;
+    width:45%;
     overflow:hidden;
     h2 {
       font-size:$size-xxl;
@@ -204,19 +204,21 @@
 }
 
 #main {
-  &.admin .event-item {
-    .event-title {
-      padding-top:0
-    }
-    .event-room, .event-time {
-      @media (max-width: $mobile-breakpoint) {
-        padding-bottom:0;
+  &.admin {
+    .event-item {
+      .event-title {
+        padding-top:0
+      }
+      .event-room, .event-time {
+        @media (max-width: $mobile-breakpoint) {
+          padding-bottom:0;
+        }
       }
     }
-  }
-  &.public .event-item {
-    .event-title h2 {
-      @include ellipsis;
+    &.public .event-item {
+      .event-title h2 {
+        @include ellipsis;
+      }
     }
   }
 }

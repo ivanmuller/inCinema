@@ -30,7 +30,7 @@ const LoginPage = ({ startLogin }) => {
 
   return (
     <div className="login-wrapper">
-      <img src="images/icon.svg" className="logo" />
+      <img src={require("@/images/icon.svg")} className="logo" />
       <Card className="login-box">
         <h1>{config.appTitle}</h1>
         <form>
