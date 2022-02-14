@@ -1,4 +1,4 @@
-export const isAdmin = () => {
+export const isAdminPage = () => {
   if (window.location.href.includes('admin')) {
     return true
   }else{

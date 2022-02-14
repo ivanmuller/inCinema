@@ -74,7 +74,9 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({
         inject: true,
         template: path.join(__dirname, 'public/index.html'),
-        title: process.env.NODE_ENV
+        title: process.env.NODE_ENV,
+        favicon: 'public/images/favicon.png',
+        filename: 'index.html'
       })
     ],
     devtool: isProduction ? 'source-map' : 'inline-source-map',

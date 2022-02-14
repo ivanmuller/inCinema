@@ -1,8 +1,4 @@
-import { initializeApp } from "firebase/app";
-import dbSettings from '../firebase/firebase';
-import { signInWithEmailAndPassword, getAuth, signOut } from "firebase/auth";
-const appDB = initializeApp(dbSettings);
-const auth = getAuth(appDB);
+import * as firebase from '../firebase/firebase';
 
 export const login = (uid) => ({
   type: 'LOGIN',
@@ -11,7 +7,7 @@ export const login = (uid) => ({
 
 export const startLogin = ({email,password}) => {
   return () => {
-    return signInWithEmailAndPassword(auth, email, password);
+    return firebase.signInWithEmailAndPassword(firebase.auth, email, password);
   }
 }
 
@@ -21,6 +17,6 @@ export const logout = () => ({
 
 export const startLogout = () => {
   return () => {
-    return signOut(auth);
+    return firebase.signOut(firebase.auth);
   }
 }

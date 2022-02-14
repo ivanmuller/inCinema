@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { addEvent } from '../actions/events';
 
 // Firebase
-import { ref as sRef, set as sSet, getDatabase } from "firebase/database";
+import * as firebase from '../firebase/firebase';
 
 import Event from './Event';
 import EventAdd from './EventAdd';
@@ -40,7 +40,6 @@ const DashboardAdmin = (props) => {
 
   const handleQueueToDelete = (id) => {
     setQueueToDelete([...queueToDelete,id]);
-    console.log(queueToDelete);
   };
 
   const handleSidebarOpen = (status) => {
@@ -49,14 +48,10 @@ const DashboardAdmin = (props) => {
 
   const handleDeploy = () => {
     if (config.enableFirebase) {
-      //firebase
-      const database = getDatabase();
-      const eventsRefDB = sRef(database, 'events');
-
       setDeployingStatus(1);
       setDeployDisabled(true);
       const deployedData = prepareDataToSave(props.events, queueToDelete);
-      sSet(eventsRefDB, deployedData).then(
+      firebase.sSet(firebase.eventsRefDB, deployedData).then(
         ()=> {
           setTimeout(() => setDeployingStatus(2), 1000);
           setTimeout(() => {

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 import config from './config';
-import { isAdmin } from './utils/utils';
+import { isAdminPage } from './utils/utils';
 import AppRouter from './routers/AppRouter';
 import fakeData from './data/data';
 import { login, logout } from './actions/auth';
@@ -13,10 +13,7 @@ import configureStore from './store/configureStore';
 import { fetchAllEvents } from './actions/events';
 
 // Firebase
-import { initializeApp } from "firebase/app";
-import dbSettings from './firebase/firebase';
-import { onAuthStateChanged, getAuth } from "firebase/auth";
-import { ref as sRef, onValue, getDatabase } from "firebase/database";
+import * as firebase from './firebase/firebase';
 
 import cogoToast from 'cogo-toast';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -27,11 +24,6 @@ import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 
 const store = configureStore();
-
-//firebase
-const appDB = initializeApp(dbSettings);
-const database = getDatabase(appDB);
-const auth = getAuth(appDB);
 
 const app = (
   <Provider store={store}>
@@ -55,8 +47,7 @@ ReactDOM.render(loading, document.getElementById('app'));
 let firstLoad = true;
 if (config.enableFirebase) {
 
-  const eventsRefDB = sRef(database, 'events');
-  onValue(eventsRefDB, (snapshot) => {
+  firebase.onValue(firebase.eventsRefDB, (snapshot) => {
     const events = [];
     snapshot.forEach((childSnapshot) => {
       events.push({
@@ -64,7 +55,7 @@ if (config.enableFirebase) {
         ...childSnapshot.val()
       });
     });
-    if (!isAdmin() && !firstLoad){
+    if (!isAdminPage() && !firstLoad){
       cogoToast.loading('Fetching new data...').then(() => {
         store.dispatch(fetchAllEvents(events));
         firstLoad = false;
@@ -83,7 +74,7 @@ if (config.enableFirebase) {
   ReactDOM.render(app, document.getElementById('app'));
 }
 
-onAuthStateChanged(auth, user => {
+firebase.onAuthStateChanged(firebase.auth, user => {
   if (user) {
     store.dispatch(login(user.uid));
   } else {

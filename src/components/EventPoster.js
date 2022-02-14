@@ -42,7 +42,7 @@ const EventPosterAdmin = ({ playing, dispatch, event: { id, poster}}) => {
 
     return (
       <div className="event-item-section event-poster">
-        {playing && <Icon className="icon blink-1">play_arrow</Icon>}
+        {playing && <Icon className="icon flash-1">play_arrow</Icon>}
         <a onClick={handleClickOpen}>
           <img src={poster ? poster : config.poster.placeholder} width="100%" />
         </a>
@@ -85,7 +85,7 @@ const EventPosterAdmin = ({ playing, dispatch, event: { id, poster}}) => {
 
 const EventPosterPublic = ({ playing, event: { poster } }) => (
   <div className="event-item-section event-poster">
-    {playing && <Icon className="icon blink-1">play_arrow</Icon>}
+    {playing && <Icon className="icon flash-1">play_arrow</Icon>}
     <img src={poster ? poster : config.poster.placeholder} width="100%" />
   </div>
 )
