@@ -6,9 +6,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 processEnvironment = process.env.NODE_ENV || 'development';
 const isProduction = processEnvironment === 'production';
 
-if (!isProduction) {
-  require('dotenv').config({ path: '.env.development' });
-}
+require('dotenv').config({ path: '.env.' + processEnvironment });
 
 module.exports = (env) => {
   //this is in set in package.json
