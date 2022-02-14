@@ -32,11 +32,13 @@ const app = (
     </MuiThemeProvider>
   </Provider>
 );
+
 const loading = (
   <div className="spinner-wrap">
     <div className="spinner-loader"></div>
   </div>
 );
+
 const error = (
   <p>Loading Error</p>
 );
@@ -76,7 +78,9 @@ if (config.enableFirebase) {
 
 firebase.onAuthStateChanged(firebase.auth, user => {
   if (user) {
-    store.dispatch(login(user.uid));
+    setTimeout(() => {
+      store.dispatch(login(user.uid));
+    }, 2000);
   } else {
     store.dispatch(logout());
   }

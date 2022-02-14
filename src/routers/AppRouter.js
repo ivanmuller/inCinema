@@ -1,5 +1,5 @@
-import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import React, {useEffect} from 'react';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import DashboardAdmin from '../components/DashboardAdmin';
 import DashboardPublic from '../components/DashboardPublic';
@@ -9,16 +9,33 @@ import PublicRoute from './PublicRoute';
 
 const history = createBrowserHistory();
 
-const AppRouter = () => (
-  <BrowserRouter history={history}>
+const AppRouterLinksInside = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const currentPageName = location.pathname.replace('/','') || 'home';
+    document.body.classList.add("page-" + currentPageName);
+    return () => {
+      //cleanup
+      document.body.classList.remove("page-" + currentPageName);
+    }
+  }, [location]);
+
+  return (
     <Routes>
       <Route path="/" element={<DashboardPublic />} exact={true} />
       <Route path="/admin" element={<PrivateRoute component={DashboardAdmin} />} />
       <Route path="/login" element={<PublicRoute component={LoginPage} />} />
-      {/*<PrivateRoute path="/admin" component={DashboardAdmin} />*/}
-      {/*<PublicRoute path="/login" component={LoginPage} />*/}
     </Routes>
-  </BrowserRouter>
-);
+  )
+};
+
+const AppRouter = () => {
+  return (
+    <BrowserRouter history={history}>
+      <AppRouterLinksInside />
+    </BrowserRouter>
+  )
+};
 
 export default AppRouter;

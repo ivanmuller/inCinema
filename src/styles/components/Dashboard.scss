@@ -2,10 +2,27 @@
   padding:$size-m;
   padding-bottom: $app-bar-height;
   min-height:100vh;
+  position: relative;
+  background:$public-dashboard-bg;
   #main.admin & {
-    background:$admin-list-bg
+    background:$body-bg;
+    &:before {
+      content: "Admin Mode";
+      z-index:999;
+      font-size:1.2rem;
+      font-weight:bold;
+      text-transform: uppercase;
+      background: $body-bg;
+      padding:6px 14px;
+      position:absolute;
+      left:50%;
+      transform: translateX(-50%);
+      top:0;
+      border-radius:0 0 8px 8px;
+    }
   }
 }
+
 
 .app-bar {
   bottom:0;

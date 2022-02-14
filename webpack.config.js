@@ -2,19 +2,19 @@ const path = require('path');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+//const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+processEnvironment = process.env.NODE_ENV || 'development';
+const isProduction = processEnvironment === 'production';
 
-if (process.env.NODE_ENV === 'development') {
+if (!isProduction) {
   require('dotenv').config({ path: '.env.development' });
 }
 
 module.exports = (env) => {
   //this is in set in package.json
-  const isProduction = env === 'production';
   const CSSExtract = new MiniCssExtractPlugin({ filename: 'styles.css' });
-
   return {
-    mode: process.env.NODE_ENV,
+    mode: processEnvironment,
     entry: ['@babel/polyfill', './src/app.js'],
     output: {
       path: path.join(__dirname, 'public', 'dist'),
@@ -74,12 +74,13 @@ module.exports = (env) => {
       new HtmlWebpackPlugin({
         inject: true,
         template: path.join(__dirname, 'public/index.html'),
-        title: process.env.NODE_ENV,
+        title: processEnvironment,
         favicon: 'public/images/favicon.png',
         filename: 'index.html'
       })
+      //,new BundleAnalyzerPlugin()
     ],
-    devtool: isProduction ? 'source-map' : 'inline-source-map',
+    devtool: isProduction ? false : 'inline-source-map',
     devServer: {
       static: {
         directory: path.join(__dirname, 'public', 'dist'),

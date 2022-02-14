@@ -1,9 +1,22 @@
+.login-mask {
+  clip-path: circle(100% at center);
+  position:absolute;
+  inset:0;
+  background:$public-dashboard-bg;
+  z-index:999;
+  overflow: hidden;
+  transition:all 1.5s $transition--ease-in-out-quint 0.5s;
+  &.transition {
+    clip-path: circle(0 at center);
+    opacity:0.5;
+  }
+}
 .login-wrapper {
   display:flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   padding:$size-l;
   .logo {
       max-width:124px;
@@ -13,8 +26,9 @@
   .login-box {
     margin-top:-125px;
     padding:$size-l;
-    max-width:290px;
     width:100%; 
+    min-height:284px;
+    width:290px;
     h1 {
       text-align: center;
       margin-bottom:0;

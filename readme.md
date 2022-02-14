@@ -19,7 +19,7 @@ Take a look to the [demo](https://incinema.netlify.com/admin) and [contact me](m
 
 ## Modules / Components
 
-- React (with hooks!)
+- React
 - Redux
 - Firebase
 - Material UI
@@ -37,6 +37,8 @@ Take a look to the [demo](https://incinema.netlify.com/admin) and [contact me](m
 - [ ] Load / Save
 - [ ] Hide an event
 - [ ] Automatic scroll
-- [ ] Remove Alert
+- [ ] Remove Alerting
 - [ ] Undo (Session Storage)
-- [ ] Subscription
+- [ ] Subscription / Notification
+- [ ] Multi-Language
+- [ ] Automated Testing
