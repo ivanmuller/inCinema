@@ -11,6 +11,8 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import icon from '../images/icon.svg';
+
 const LoginPage = ({ startLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -33,7 +35,7 @@ const LoginPage = ({ startLogin }) => {
   return (
     <div className={"login-mask " + (transitionClass ? 'transition' : '')}>
       <div className="login-wrapper">
-        <img src={require("@/images/icon.svg")} className="logo" />
+        <img src={icon} className="logo" />
         <Card className="login-box">
           <h1>{config.appTitle}</h1>
           <form>

@@ -19,11 +19,6 @@ module.exports = (env) => {
       filename: 'bundle.js',
       publicPath: '/'
     },
-    resolve: {
-      alias: {
-        "@": path.resolve(__dirname, "public"),
-      }
-    },
     module: {
       rules: [
         {
@@ -73,7 +68,7 @@ module.exports = (env) => {
         inject: true,
         template: path.join(__dirname, 'public/index.html'),
         title: processEnvironment,
-        favicon: 'public/images/favicon.png',
+        favicon: 'src/images/favicon.png',
         filename: 'index.html'
       })
       //,new BundleAnalyzerPlugin()

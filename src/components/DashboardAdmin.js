@@ -23,6 +23,8 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Icon from '@material-ui/core/Icon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
+import icon from '../images/icon.svg';
+
 const DashboardAdmin = (props) => {
   const [isOpenDialogSearchEvent, setOpenDialogSearch] = useState(false);
   const [queueToDelete,setQueueToDelete] = useState([]);
@@ -80,7 +82,7 @@ const DashboardAdmin = (props) => {
         <AppBar className={"app-bar " + (isSidebarOpen && 'sidebar-opened')} position="fixed" color="default">
           <Toolbar disableGutters={true} className="tool-bar">
 
-            <img src={require("@/images/icon.svg")} alt="Popcorn" className="logo"/>
+            <img src={icon} alt="Popcorn" className="logo"/>
             <h1>{config.appTitle}</h1>
 
             <EventAddButtons handleAddEventManual={handleAddEventManual} handleOpenDialogSearchEvent={handleOpenDialogSearchEvent} />
