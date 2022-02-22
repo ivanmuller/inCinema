@@ -25,9 +25,7 @@ const AppRouterLinksInside = () => {
     <Routes>
       <Route path="/" element={<DashboardPublic />} exact={true} />
       <Route path="/admin" element={<PrivateRoute component={DashboardAdmin} />} />
-      <Route path="/login" element={<PublicRoute component={LoginPage} />} />*/}
-      {/*<Route path="/admin" element={<DashboardAdmin />} />
-      <Route path="/login" element={<LoginPage />} />*/}
+      <Route path="/login" element={<PublicRoute component={LoginPage} />} />
     </Routes>
   )
 };
