@@ -17,7 +17,8 @@ module.exports = (env) => {
     output: {
       path: path.join(__dirname, 'public', 'dist'),
       filename: 'bundle.js',
-      publicPath: '/'
+      publicPath: '/',
+      assetModuleFilename: 'assets/[hash][ext][query]'
     },
     module: {
       rules: [
