@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { startLogin } from '../actions/auth';
 
 import { Link } from "react-router-dom";
+import { createBrowserHistory } from 'history';
 
 import Card from '@material-ui/core/Card';
 import TextField from '@material-ui/core/TextField';
@@ -20,16 +21,18 @@ const LoginPage = ({ startLogin }) => {
   const [clickStatus, setClickStatus] = useState(0);//0:idle 1:loading 2:done
   const [transitionClass, setTransitionClass] = useState(false);
 
+  const history = createBrowserHistory();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     setClickStatus(1);
-    startLogin({ email, password }).then(()=>{
+    startLogin({ email, password }).then(() => {
       setTransitionClass(true);
       setClickStatus(2);
     }).catch((error) => {
       setError(error);
       setClickStatus(0);
-    });
+    });       
   };
 
   return (

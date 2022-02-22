@@ -31,17 +31,13 @@ const app = (
       <AppRouter />
     </MuiThemeProvider>
   </Provider>
-);
+)
 
 const loading = (
   <div className="spinner-wrap">
     <div className="spinner-loader"></div>
   </div>
-);
-
-const error = (
-  <p>Loading Error</p>
-);
+)
 
 ReactDOM.render(loading, document.getElementById('app'));
 
@@ -76,7 +72,7 @@ if (config.enableFirebase) {
   ReactDOM.render(app, document.getElementById('app'));
 }
 
-firebase.onAuthStateChanged(firebase.auth, user => {
+firebase.onAuthStateChanged(firebase.auth, (user) => {
   if (user) {
     setTimeout(() => {
       store.dispatch(login(user.uid));
