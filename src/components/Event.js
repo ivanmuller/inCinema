@@ -34,7 +34,6 @@ const Event = (props) => {
   const calculateDate = () => {
     const now = moment();
     const eventTime = moment(props.datetime);
-    const humanDiff = moment(eventTime).fromNow(true);
     const eventTimeFinished = moment(props.datetime).add(props.duration, 'm');
     if (now.isAfter(eventTimeFinished)) { //Finished Event
       const humanDiff = moment(eventTimeFinished).fromNow(true);
@@ -42,11 +41,13 @@ const Event = (props) => {
       setPlaying(false);
       setFinished(true);
     } else if(eventTime.isBefore(now)) {//already started event
-      setTimeDifference(`<span>Started</span> ${humanDiff} ago`);
+      const playingTime = moment.utc(now.diff(eventTime)).format('HH:mm');
+      setTimeDifference(`<span>▶ Now Playing</span> ${playingTime}`);
       setPlaying(true);
       setFinished(false);
     }else {//not started event
-      setTimeDifference(`<span>Starts in</span> ${humanDiff}`);
+      const humanDiff = moment(eventTime).fromNow(true);
+      setTimeDifference(`<span>Starting in</span> ${humanDiff}`);
       setPlaying(false);
       setFinished(false);
     }

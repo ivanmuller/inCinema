@@ -18,5 +18,6 @@ export default {
     'cantLoadDatabase': 'Can\'t load database'
   },
   'optionsAdd': ['Add movie from Database', 'Add movie Manually'],
-  'seatsWarningThresold': 10
+  'seatsWarningThresold': 10,
+  'loginTimeout': 0
 }
