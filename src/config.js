@@ -19,5 +19,5 @@ export default {
   },
   'optionsAdd': ['Add movie from Database', 'Add movie Manually'],
   'seatsWarningThresold': 10,
-  'loginTimeout': 0
+  'loginTimeout': 2000
 }

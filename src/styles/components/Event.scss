@@ -2,9 +2,10 @@
   display:flex;
   flex-wrap:wrap;
   width:100%;
-  margin-bottom:$size-m;
+  margin-bottom:$size-s;
   position:relative; 
   overflow:visible !important;
+  border:1px solid #DDD;
   .event-number {
     position:absolute;
     top:0;
