@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 
 import { connect } from 'react-redux';
-import { editEvent } from '../actions/events';
+import { editEvent } from '@root/actions/events';
 
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';

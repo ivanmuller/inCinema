@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import config from '../config';
 
 import { connect } from 'react-redux';
-import { editAllEvents } from '../actions/events';
+import { editAllEvents } from '@root/actions/events';
 
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';

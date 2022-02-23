@@ -1,9 +1,9 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { startLogout } from '../actions/auth';
+import { startLogout } from '@root/firebase/firebase';
 
-import AdvancedEdition from './AdvancedEdition';
+import AdvancedEdition from '@root/components/AdvancedEdition';
 
 import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';

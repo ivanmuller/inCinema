@@ -20,6 +20,11 @@ module.exports = (env) => {
       publicPath: '/',
       assetModuleFilename: 'dist/[hash][ext][query]'
     },
+    resolve: {
+      alias: {
+        "@root": path.resolve(__dirname, 'src/'),
+      },
+    },
     module: {
       rules: [
         {

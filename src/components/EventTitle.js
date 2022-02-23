@@ -1,10 +1,10 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { editEvent } from '../actions/events';
+import { editEvent } from '@root/actions/events';
 
-import { EventYearAdminConn as EventYearAdmin, EventYearPublicConn as EventYearPublic } from './EventYear';
-import { EventTypeAdminConn as EventTypeAdmin, EventTypePublicConn as EventTypePublic } from './EventType';
+import { EventYearAdminConn as EventYearAdmin, EventYearPublicConn as EventYearPublic } from '@root/components/EventYear';
+import { EventTypeAdminConn as EventTypeAdmin, EventTypePublicConn as EventTypePublic } from '@root/components/EventType';
 
 const EventTitleAdmin = ({dispatch, event: { title, id }}) => {
 

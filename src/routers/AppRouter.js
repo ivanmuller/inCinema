@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import DashboardAdmin from '../components/DashboardAdmin';
-import DashboardPublic from '../components/DashboardPublic';
-import LoginPage from '../components/LoginPage'
+import DashboardAdmin from '../pages/DashboardAdmin';
+import DashboardPublic from '../pages/DashboardPublic';
+import LoginPage from '../pages/LoginPage'
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 

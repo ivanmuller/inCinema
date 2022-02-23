@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import config from '../config';
+import config from '@root/config';
 
 import { connect } from 'react-redux';
-import { startLogin } from '../actions/auth';
+import { startLogin } from '@root/firebase/firebase';
 
 import { Link } from "react-router-dom";
 
@@ -11,7 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import icon from '../images/icon.svg';
+import icon from '@root/images/icon.svg';
 
 const LoginPage = ({ startLogin }) => {
   const [email, setEmail] = useState('');

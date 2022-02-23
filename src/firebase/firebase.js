@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { onAuthStateChanged, signInWithEmailAndPassword, getAuth, signOut } from "firebase/auth";
-import { ref as sRef, set as sSet, onValue, getDatabase } from "firebase/database";
+import { ref as sRef, set as sSet, onValue, getDatabase } from "firebase/database"; 
 
 const dbSettings = {
     apiKey: process.env.FIREBASE_API_KEY,
@@ -18,4 +18,16 @@ const appDB = initializeApp(dbSettings);
 export const database = getDatabase(appDB);
 export const auth = getAuth(appDB);
 export const eventsRefDB = sRef(database, 'events');
-export { onValue, onAuthStateChanged, signInWithEmailAndPassword, signOut, sSet };
+export { onValue, onAuthStateChanged, sSet };
+
+export const startLogin = ({ email, password }) => {
+    return () => {
+        return signInWithEmailAndPassword(auth, email, password);
+    }
+}
+
+export const startLogout = () => {
+    return () => {
+        return signOut(auth);
+    }
+}

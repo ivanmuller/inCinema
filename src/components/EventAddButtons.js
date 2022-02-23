@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import config from '../config';
+import config from '@root/config';
 
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup';

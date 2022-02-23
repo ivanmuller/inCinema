@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import config from '../config';
+import config from '@root/config';
 
 import { connect } from 'react-redux';
-import { editEvent } from '../actions/events';
+import { editEvent } from '@root/actions/events';
 
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';

@@ -3,17 +3,17 @@ import config from '../config';
 import { prepareDataToSave, oderEvents } from '../utils/utils';
 
 import { connect } from 'react-redux';
-import { addEvent } from '../actions/events';
+import { addEvent } from '@root/actions/events';
 
 // Firebase
-import * as firebase from '../firebase/firebase';
+import * as firebase from '@root/firebase/firebase';
 
-import Event from './Event';
-import EventAdd from './EventAdd';
-import EventAddButtons from './EventAddButtons';
+import Event from '@root/components/Event';
+import EventAdd from '@root/components/EventAdd';
+import EventAddButtons from '@root/components/EventAddButtons';
 
 import FlipMove from 'react-flip-move';
-import Sidebar from './Sidebar';
+import Sidebar from '@root/components/Sidebar';
 
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
@@ -23,7 +23,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Icon from '@material-ui/core/Icon';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
-import icon from '../images/icon.svg';
+import icon from '@root/images/icon.svg';
 
 const DashboardAdmin = (props) => {
   const [isOpenDialogSearchEvent, setOpenDialogSearch] = useState(false);

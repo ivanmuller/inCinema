@@ -5,7 +5,7 @@
   background:$public-dashboard-bg;
   z-index:999;
   overflow: hidden;
-  transition:all 1.5s $transition--ease-in-out-quint 0.5s;
+  transition:all 1.5s $transition--ease-in-out-quint 0.1s;
   &.transition {
     clip-path: circle(0 at center);
     opacity:0.5;

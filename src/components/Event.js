@@ -1,30 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import config from '../config';
+import config from '@root/config';
 
 import { connect } from 'react-redux';
 
 import Card from '@material-ui/core/Card';
 import moment from 'moment';
-import useInterval from '../hooks/useInterval';
+import useInterval from '@root/hooks/useInterval';
 
 import { 
   EventPosterAdminConn as EventPosterAdmin, 
   EventPosterPublicConn as EventPosterPublic 
-} from './EventPoster';
+} from '@root/components/EventPoster';
 import { 
   EventTitleAdminConn as EventTitleAdmin, 
   EventTitlePublicConn as EventTitlePublic 
-} from './EventTitle';
+} from '@root/components/EventTitle';
 import { 
   EventTimeAdminConn as EventTimeAdmin, 
   EventTimePublicConn as EventTimePublic 
-} from './EventTime';
-import EventSeats from './EventSeats';
+} from '@root/components/EventTime';
+import EventSeats from '@root/components/EventSeats';
 import { 
   EventRoomAdminConn as EventRoomAdmin, 
   EventRoomPublicConn as EventRoomPublic }
-   from './EventRoom';
-import EventActions from "./EventActions";
+   from '@root/components/EventRoom';
+import EventActions from "@root/components/EventActions";
 
 const Event = (props) => {
   const [timeDifference, setTimeDifference] = useState('first');

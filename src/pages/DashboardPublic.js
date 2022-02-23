@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { oderEvents } from '../utils/utils';
+import { oderEvents } from '@root/utils/utils';
 
-import Event from './Event';
+import Event from '@root/components/Event';
 import FlipMove from 'react-flip-move';
 
 const DashboardPublic = (props) => {

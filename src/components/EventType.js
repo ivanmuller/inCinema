@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import config from '../config';
+import config from '@root/config';
 
 import { connect } from 'react-redux';
-import { editEvent } from '../actions/events';
+import { editEvent } from '@root/actions/events';
 
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';

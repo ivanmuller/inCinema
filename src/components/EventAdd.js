@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import config from '../config';
-import { mapOptionsToValues } from '../utils/utils';
+import config from '@root/config';
+import { mapOptionsToValues } from '@root/utils/utils';
 
 import { connect } from 'react-redux';
-import { addEvent } from '../actions/events';
+import { addEvent } from '@root/actions/events';
 
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -18,7 +18,7 @@ import moment from 'moment';
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import MomentUtils from '@date-io/moment';
 
-import thumbnail from '../images/thumbnail.svg';
+import thumbnail from '@root/images/thumbnail.svg';
 
 import AsyncSelect from 'react-select/async';
 import { throttle } from 'lodash';

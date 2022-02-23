@@ -2,7 +2,7 @@ import React from 'react';
 
 // Redux Store
 import { connect } from 'react-redux';
-import { addEvent,removeEvent } from '../actions/events';
+import { addEvent, removeEvent } from '@root/actions/events';
 
 import Icon from '@material-ui/core/Icon';
 
