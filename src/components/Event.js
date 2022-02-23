@@ -64,7 +64,7 @@ const Event = (props) => {
   const shouldShowAdmin = props.auth.uid && window.location.pathname == '/admin'; 
   
   return (
-    <Card className={['event-item', finished && 'finished', playing && 'playing'].join(" ")}>
+    <Card boxShadow={0} className={['event-item', finished && 'finished', playing && 'playing'].join(" ")}>
       {shouldShowAdmin ? (
           <>
             <div className="event-number">{props.index + 1}</div>
