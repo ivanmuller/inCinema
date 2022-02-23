@@ -42,3 +42,4 @@ Take a look to the [demo](https://incinema.netlify.com/admin) and [contact me](m
 - [ ] Subscription / Notification
 - [ ] Multi-Language
 - [ ] Automated Testing
+- [ ] Code Splitting
