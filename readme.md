@@ -38,7 +38,7 @@ Take a look to the [demo](https://incinema.netlify.com/admin) and [contact me](m
 - [ ] Hide an event
 - [ ] Automatic scroll
 - [ ] Remove Alerting
-- [ ] Undo (Session Storage)
+- [ ] Undo
 - [ ] Subscription / Notification
 - [ ] Multi-Language
 - [ ] Automated Testing
