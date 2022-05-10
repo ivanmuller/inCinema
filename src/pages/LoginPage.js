@@ -34,6 +34,8 @@ const LoginPage = ({ startLogin }) => {
 
   return (
     <div className={"login-mask " + (transitionClass ? 'transition' : '')}>
+      node_env: {process.env.NODE_ENV} <br />
+      fb_db: {process.env.FIREBASE_DATABASE_URL}
       <div className="login-wrapper">
         <img src={icon} className="logo" />
         <Card className="login-box">
