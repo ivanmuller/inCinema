@@ -71,13 +71,14 @@ if (config.enableFirebase) {
   store.dispatch(fetchAllEvents(fakeData));
   ReactDOM.render(app, document.getElementById('app'));
 }
-
-firebase.onAuthStateChanged(firebase.auth, (user) => {
-  if (user) {
-    setTimeout(() => {
-      store.dispatch(login(user.uid));
-    }, config.loginTimeout);
-  } else {
-    store.dispatch(logout());
-  }
-});
+if (config.enableFirebase) {
+  firebase.onAuthStateChanged(firebase.auth, (user) => {
+    if (user) {
+      setTimeout(() => {
+        store.dispatch(login(user.uid));
+      }, config.loginTimeout);
+    } else {
+      store.dispatch(logout());
+    }
+  });
+}
