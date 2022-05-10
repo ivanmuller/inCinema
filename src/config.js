@@ -3,7 +3,7 @@ export default {
   'dateIntervalrefresh': 6000,
   'rooms': ['1','2','3','Main','kids'],
   'types': ['Imax 3D', 'Classic', '4D'],
-  'enableFirebase': true,
+  'enableFirebase': false,
   'yearsMin': 1950,
   'api': {
     'moviedb': process.env.MOVIEDB_KEY,
