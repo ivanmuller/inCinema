@@ -1,4 +1,4 @@
->  `This was a proyect started in 2018 to put in practice my new skills in React. I have been trying to improve the code recently (yes, it was worse) but it really needs a refactor.`
+>  `This was a proyect started in 2019 to put in practice my new skills in React. I have been trying to improve the code recently (yes, it was worse) but it really needs a refactor.`
 
 # 🍿 inCinema React App
 
