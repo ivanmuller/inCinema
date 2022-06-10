@@ -1,3 +1,5 @@
+>  `This was a proyect started in 2018 to put in practice my new skills in React. I have been trying to improve the code recently (yes, it was worse) but it really needs a refactor.`
+
 # 🍿 inCinema React App
 
 A live panel of movies to be used in cinemas, with authentication to admin panel and deploy function to share to connected devices in real time. 
